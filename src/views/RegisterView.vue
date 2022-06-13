@@ -9,11 +9,11 @@
       </div>
       <div class="col-8 col-sm-9 d-flex">
         <div class="my-auto mx-auto w-50">
-          <p class="text-dark" style="font-size: 32px">Get Your Free Account!</p>
-          <br>
+          <p class="text-dark text-center" style="font-size: 32px">Get Your Free Account!</p>
+          <br />
           <form>
             <!-- Name input -->
-             <div class="form-floating mb-4">
+            <div class="form-floating mb-4">
               <input style="border-radius: 32px" type="text" id="inputNama" class="form-control" placeholder="Nama Lengkap" />
               <label for="inputNama">Nama Lengkap</label>
             </div>
@@ -22,7 +22,7 @@
               <input style="border-radius: 32px" type="number" id="inputNip" class="form-control" placeholder="Nomer Induk Pegawai" />
               <label for="inputNip">Nomor Induk Pegawai</label>
             </div>
-             <!-- Email input -->
+            <!-- Email input -->
             <div class="form-floating mb-4">
               <input style="border-radius: 32px" type="text" id="inputEmail" class="form-control" placeholder="Email" />
               <label for="inputEmail">Email</label>

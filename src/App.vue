@@ -1,16 +1,12 @@
 <template>
-  <div id="app" class="vh-100">
+  <div id="app">
     <router-view />
   </div>
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #000000;
+  font-family: "Nunito", sans-serif;
 }
 
 nav {

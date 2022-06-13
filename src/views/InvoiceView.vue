@@ -1,15 +1,10 @@
 <template>
   <div class="container-fluid">
-    <div class="row min-vh-100">
-      <div class="col-4 col-sm-3 d-flex">
-        <div class="my-auto">
-          <p class="text-light mt-6 mx-auto text-center" style="width: 140px; font-size: 32px">Welcome Back</p>
-          <img class="img-fluid" src="../assets/login_welcome.png" alt="" />
-        </div>
-      </div>
-      <div class="col-8 col-sm-9 d-flex">
+    <div class="row">
+      <SidebarNav />
+      <div class="col-lg-10 col-md-8 col-sm-8 d-flex">
         <div class="my-auto mx-auto w-50">
-          <p class="text-dark text-center" style="font-size: 32px">Sign in to access Invoice</p>
+          <p class="text-dark" style="font-size: 32px">Sign in to access Invoice</p>
           <form>
             <!-- Email input -->
             <div class="form-floating mb-4">
@@ -48,44 +43,14 @@
     </div>
   </div>
 </template>
-<style>
-* {
-  padding: 0;
-  margin: 0;
-  /* height: 100%; */
-}
-
-.col-4 {
-  background: #25a559;
-}
-.btn-primary {
-  background: #25a559 !important;
-  color: #fff;
-  border-color: #25a559 !important;
-}
-.btn-secondary {
-  background: #fff !important;
-  color: #25a559;
-  border-color: #25a559 !important;
-}
-</style>
 <script>
+import SidebarNav from "@/components/SidebarNav.vue";
 export default {
+  components: {
+    SidebarNav,
+  },
   data() {
-    return {
-      showPassword: false,
-      password: null,
-    };
-  },
-  computed: {
-    buttonLabel() {
-      return this.showPassword ? "Hide" : "Show";
-    },
-  },
-  methods: {
-    toggleShow() {
-      this.showPassword = !this.showPassword;
-    },
+    return {};
   },
 };
 </script>
