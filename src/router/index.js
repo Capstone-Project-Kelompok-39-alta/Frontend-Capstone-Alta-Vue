@@ -7,6 +7,7 @@ import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import DashboardView from "../views/DashboardView.vue";
 import InvoiceView from "../views/InvoiceView.vue";
+import ManageAccountView from "../views/ManageAccountView.vue";
 
 Vue.use(VueRouter);
 
@@ -26,6 +27,11 @@ const routes = [
     path: "/history",
     name: "history",
     component: HistoryEmailView,
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: ManageAccountView,
   },
   {
     path: "/clients",
