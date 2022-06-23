@@ -13,7 +13,7 @@
               <img class="img-fluid mt-5" src="../assets/bell_vector.svg" alt="" />
             </div>
             <div class="p-2 bd-highlight">
-              <img class="img-fluid mt-5 me-5" src="../assets/user_vector.svg" alt="" />
+              <img class="img-fluid mt-5 me-5" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#exampleModal" src="../assets/user_vector.svg" alt="" />
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div class="row">
-          <table class="table ms-5" style="width: 1160px">
+          <table class="table ms-5" style="width: 90%">
             <thead>
               <tr>
                 <th scope="col"></th>
@@ -85,10 +85,52 @@
                 <td>Nama Client</td>
                 <td>Telkom</td>
                 <td>$242,55</td>
-                <td><button class="btn btn-danger" style="border-radius: 32px">Unpaid</button> <button class="btn btn-secondary" style="border-radius: 32px">Detail</button></td>
+                <td><button class="btn btn-danger" style="border-radius: 32px">Unpaid</button> <button class="btn btn-secondary">Detail</button></td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="container-fluid profile">
+                  <div class="row">
+                    <div class="top-profile">
+                      <div class="d-flex"><div class="mx-auto fw-bold" style="font-size: 32px; margin-top: 80px">Profile</div></div>
+
+                      <div class="d-flex flex-coloumn">
+                        <img class="mx-auto" style="margin-top: 0px" src="../assets/carbon_user-avatar-filled.svg" alt="" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="low-profile">
+                    <div class="row">
+                      <div class="text-center fw-bold" style="font-size: 24px">Kelompok 39</div>
+                    </div>
+                    <div class="row"><div class="text-center" style="font-size: 18px; font-weight: 400">Kelompok39@gmail.com</div></div>
+                    <div class="row mt-4">
+                      <div class="d-flex">
+                        <button class="btn btn-secondary mx-auto text-dark fw-bold" data-bs-dismiss="modal" @click="manageAccount()" style="height: 70px; width: 90%" type="button">
+                          <div class="row">
+                            <div class="col-10 text-start">Manage Your Account</div>
+                            <div class="col-2 text-end text-black"><i class="bi bi-chevron-right"></i></div>
+                          </div>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row mt-4 mb-5">
+                      <div class="d-flex">
+                        <button class="btn btn-secondary mx-auto text-dark fw-bold text-start" data-bs-dismiss="modal" style="height: 70px; width: 90%" type="button">Sign out</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -103,9 +145,30 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    manageAccount() {
+      this.$router.push("/account");
+    },
+  },
 };
 </script>
 <style scoped>
+.profile {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.modal-body {
+  margin: 0;
+  padding: 0;
+}
+.low-profile {
+  margin-top: 60px;
+}
+.top-profile {
+  height: 196px;
+  background-color: #f1f1f1;
+  width: 100% !important;
+}
 .btn-danger {
   background: #d32f2f !important;
   color: #ffffff;
@@ -115,6 +178,7 @@ export default {
   background: #fff !important;
   color: #25a559;
   border-color: #25a559 !important;
+  border-radius: 32px;
 }
 .btn-secondary:hover {
   color: #25a559 !important;
