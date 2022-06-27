@@ -6,7 +6,7 @@
         <div class="row">
           <div class="d-flex bd-highlight mb-3">
             <div class="me-auto p-2 bd-highlight">
-              <h3 class="mt-5 ms-5">Dashboard</h3>
+              <h3 class="mt-5 ms-5 fw-bold">Dashboard</h3>
             </div>
 
             <div class="p-2 bd-highlight">
@@ -196,9 +196,7 @@ export default {
 .cell {
   overflow: auto;
 }
-h3 {
-  font-weight: 700;
-}
+
 .data_cont {
   height: 200vh;
 }
