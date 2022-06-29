@@ -8,43 +8,49 @@ import RegisterView from "../views/RegisterView.vue";
 import DashboardView from "../views/DashboardView.vue";
 import InvoiceView from "../views/InvoiceView.vue";
 import ManageAccountView from "../views/ManageAccountView.vue";
-
+import Default from "../views/DefaultView.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "dashboard",
-    component: DashboardView,
+    path: "/dashboard",
+    component: Default,
+    children: [
+      {
+        path: "",
+        name: "dashboard",
+        component: DashboardView,
+      },
+      {
+        path: "/transaction",
+        name: "transaction",
+        component: TransactionView,
+      },
+      {
+        path: "/history",
+        name: "history",
+        component: HistoryEmailView,
+      },
+      {
+        path: "/account",
+        name: "account",
+        component: ManageAccountView,
+      },
+      {
+        path: "/clients",
+        name: "clients",
+        component: ClientsView,
+      },
+      {
+        path: "/invoice",
+        name: "invoice",
+        component: InvoiceView,
+      },
+    ],
   },
 
   {
-    path: "/transaction",
-    name: "transaction",
-    component: TransactionView,
-  },
-  {
-    path: "/history",
-    name: "history",
-    component: HistoryEmailView,
-  },
-  {
-    path: "/account",
-    name: "account",
-    component: ManageAccountView,
-  },
-  {
-    path: "/clients",
-    name: "clients",
-    component: ClientsView,
-  },
-  {
-    path: "/invoice",
-    name: "invoice",
-    component: InvoiceView,
-  },
-  {
-    path: "/login",
+    path: "/",
     name: "login",
     component: LoginView,
   },
