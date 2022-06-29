@@ -3,7 +3,7 @@
     <div class="mt-6 mx-auto">
       <ul class="text-start">
         <li class="mb-4">
-          <router-link style="text-decoration: none" to="/"><i class="bi bi-house-door-fill"></i> Dashboard</router-link>
+          <router-link style="text-decoration: none" to="/dashboard"><i class="bi bi-house-door-fill"></i> Dashboard</router-link>
         </li>
         <li class="mb-4">
           <router-link style="text-decoration: none" to="/invoice"><i class="bi bi-receipt"></i> Invoices</router-link>
