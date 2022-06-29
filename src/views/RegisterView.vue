@@ -14,17 +14,17 @@
           <form>
             <!-- Name input -->
             <div class="form-floating mb-4">
-              <input style="border-radius: 32px" type="text" id="inputNama" class="form-control" placeholder="Nama Lengkap" />
+              <input style="border-radius: 32px" v-model="name" type="text" id="inputNama" class="form-control" placeholder="Nama Lengkap" />
               <label for="inputNama">Nama Lengkap</label>
             </div>
             <!-- Id Input -->
             <div class="form-floating mb-4">
-              <input style="border-radius: 32px" type="number" id="inputNip" class="form-control" placeholder="Nomer Induk Pegawai" />
+              <input style="border-radius: 32px" v-model="id_pegawai" type="number" id="inputNip" class="form-control" placeholder="Nomer Induk Pegawai" />
               <label for="inputNip">Nomor Induk Pegawai</label>
             </div>
             <!-- Email input -->
             <div class="form-floating mb-4">
-              <input style="border-radius: 32px" type="text" id="inputEmail" class="form-control" placeholder="Email" />
+              <input style="border-radius: 32px" v-model="email" type="text" id="inputEmail" class="form-control" placeholder="Email" />
               <label for="inputEmail">Email</label>
             </div>
 
@@ -40,7 +40,7 @@
 
             <!-- Submit button -->
             <div class="d-grid gap-2 col-12 mx-auto">
-              <button style="border-radius: 32px" class="btn btn-primary btn-lg" type="button">Register</button>
+              <button style="border-radius: 32px" class="btn btn-primary btn-lg" type="button" @click="doRegister()">Register</button>
               <div class="mb-1" style="width: 100%; height: 13px; border-bottom: 1px solid black; text-align: center">
                 <span style="font-size: 16px; background: #ffffff; padding: 0 10px"> Or </span>
               </div>
@@ -79,14 +79,35 @@ export default {
     return {
       showPassword: false,
       password: null,
+      name: "",
+      email: "",
+      id_pegawai: "",
+      errorText: "",
     };
   },
   computed: {
     buttonLabel() {
       return this.showPassword ? "Hide" : "Show";
     },
+    errorMsg() {
+      return this.$store.state.auth.info;
+    },
   },
   methods: {
+    async doRegister() {
+      const result = await this.$store.dispatch("auth/register", {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        id_pegawai: this.id_pegawai,
+      });
+      if (result) {
+        alert("register berhasil");
+        this.$router.push("/login");
+      } else {
+        alert("Regist gagal", this.errorMsg);
+      }
+    },
     toggleShow() {
       this.showPassword = !this.showPassword;
     },

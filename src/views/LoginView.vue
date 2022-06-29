@@ -40,7 +40,7 @@
               <div class="mb-1" style="width: 100%; height: 13px; border-bottom: 1px solid black; text-align: center">
                 <span style="font-size: 16px; background: #ffffff; padding: 0 10px"> Or </span>
               </div>
-              <button class="btn btn-secondary text-dark btn-lg" style="border-radius: 32px" type="button">Register</button>
+              <button class="btn btn-secondary text-dark btn-lg" style="border-radius: 32px" type="button" @click="toRegister()">Register</button>
             </div>
           </form>
         </div>
@@ -85,6 +85,9 @@ export default {
   methods: {
     toggleShow() {
       this.showPassword = !this.showPassword;
+    },
+    toRegister() {
+      this.$router.push("/register");
     },
   },
 };

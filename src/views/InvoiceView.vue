@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="row">
-          <table class="table ms-5" style="width: 1160px">
+          <table class="table ms-5" id="datatable" style="width: 90%">
             <thead>
               <tr>
                 <th scope="col"></th>
@@ -64,17 +64,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <tr v-for="(news, index) in listNews" :key="index">
                 <td>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                   </div>
                 </td>
-                <td>PQ-1124D</td>
-                <td>08/05/22</td>
-                <td>Nama Client</td>
-                <td>Telkom</td>
-                <td>$242,55</td> 
+                <td>{{ news.title }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td><button class="btn btn-danger" style="border-radius: 32px">Unpaid</button> <button class="btn btn-secondary" style="border-radius: 32px">Detail</button></td>
               </tr>
             </tbody>
@@ -86,12 +86,33 @@
 </template>
 <script>
 import SidebarNav from "@/components/SidebarNav.vue";
+import $ from "jquery";
 export default {
   components: {
     SidebarNav,
   },
   data() {
     return {};
+  },
+  computed: {
+    listNews() {
+      return this.$store.state.invoice.lists;
+    },
+    errorMessage() {
+      if (this.$store.state.news.error !== "") {
+        return true;
+      }
+      return false;
+    },
+  },
+  methods: {
+    getNews() {
+      this.$store.dispatch("invoice/fetchListNews");
+    },
+  },
+  mounted() {
+    this.getNews();
+    $("#datatable").DataTable();
   },
 };
 </script>
