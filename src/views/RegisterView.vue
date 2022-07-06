@@ -19,7 +19,7 @@
             </div>
             <!-- Id Input -->
             <div class="form-floating mb-4">
-              <input style="border-radius: 32px" v-model="id_pegawai" type="number" id="inputNip" class="form-control" placeholder="Nomer Induk Pegawai" />
+              <input style="border-radius: 32px" v-model.number="id_pegawai" type="number" id="inputNip" class="form-control" placeholder="Nomer Induk Pegawai" />
               <label for="inputNip">Nomor Induk Pegawai</label>
             </div>
             <!-- Email input -->
@@ -44,7 +44,7 @@
               <div class="mb-1" style="width: 100%; height: 13px; border-bottom: 1px solid black; text-align: center">
                 <span style="font-size: 16px; background: #ffffff; padding: 0 10px"> Or </span>
               </div>
-              <button class="btn btn-secondary text-dark btn-lg" style="border-radius: 32px" type="button">Sign In</button>
+              <button class="btn btn-secondary text-dark btn-lg" style="border-radius: 32px" type="button" @click="toLogin()">Sign In</button>
             </div>
           </form>
         </div>
@@ -81,7 +81,7 @@ export default {
       password: null,
       name: "",
       email: "",
-      id_pegawai: "",
+      id_pegawai: null,
       errorText: "",
     };
   },
@@ -94,6 +94,9 @@ export default {
     },
   },
   methods: {
+    toLogin() {
+      this.$router.push("/");
+    },
     async doRegister() {
       const result = await this.$store.dispatch("auth/register", {
         name: this.name,
@@ -103,7 +106,7 @@ export default {
       });
       if (result) {
         alert("register berhasil");
-        this.$router.push("/login");
+        this.$router.push("/");
       } else {
         alert("Regist gagal", this.errorMsg);
       }

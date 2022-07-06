@@ -28,14 +28,14 @@ const actions = {
         }
         // {
         //   headers: {
-        //     "Access-Control-Allow-Origin": "*",
+        //     "Authorization": "Bearer "+state.token,
         //     "Content-type": "application/json",
         //   },
         // }
       )
       .then((response) => {
         console.log("respon: ", response);
-        if (response.message === "success register admin") {
+        if (response.status === 201) {
           return true;
         } else {
           store.commit("setInfo", response.message);
@@ -50,46 +50,38 @@ const actions = {
   },
   login(store, credentials) {
     return axios
-      .post(`${apiHost}/api/authaccount/login`, {
-        email: credentials.email,
+      .post(`${apiHost}/admin/login`, {
+        id_pegawai: credentials.id_pegawai,
         password: credentials.password,
       })
       .then((response) => {
-        if (response.data.message === "success") {
-          store.commit("setToken", response.data.data.Token);
-          store.commit(
-            "user/setCurrentUser",
-            {
-              id: response.data.data.Id,
-              username: response.data.data.Name,
-              email: response.data.data.Email,
-            },
-            {
-              root: true,
-            }
-          );
+        if (response.status === 200) {
+          store.commit("setToken", response.data.data);
+          // store.commit(
+          //   "user/setCurrentUser",
+          //   {
+          //     id: response.data.data.Id,
+          //     username: response.data.data.Name,
+          //     email: response.data.data.Email,
+          //   },
+          //   {
+          //     root: true,
+          //   }
+          // );
+          console.log(response.data);
           return response;
         } else {
           store.commit("setInfo", response.data.message);
         }
       })
       .catch((error) => {
+        console.log("error nya adalah", error);
         store.commit("setInfo", error);
       });
   },
   logout(store) {
     store.commit("setToken", "");
-    store.commit(
-      "user/setCurrentUser",
-      {
-        id: "",
-        username: "",
-        email: "",
-      },
-      {
-        root: true,
-      }
-    );
+
     return true;
   },
   checkUser(store, id) {

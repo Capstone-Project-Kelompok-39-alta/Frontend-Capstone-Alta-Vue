@@ -13,7 +13,7 @@
           <form>
             <!-- Email input -->
             <div class="form-floating mb-4">
-              <input style="border-radius: 32px" type="number" id="inputNip" class="form-control" placeholder="Nomer Induk Pegawai" />
+              <input style="border-radius: 32px" type="number" id="inputNip" v-model.number="id_pegawai" class="form-control" placeholder="Nomer Induk Pegawai" />
               <label for="inputNip">Nomer Induk Pegawai</label>
             </div>
 
@@ -36,7 +36,7 @@
 
             <!-- Submit button -->
             <div class="d-grid gap-2 col-12 mx-auto">
-              <button style="border-radius: 32px" class="btn btn-primary btn-lg" type="button">Sign In</button>
+              <button style="border-radius: 32px" class="btn btn-primary btn-lg" type="button" @click="doLogin()">Sign In</button>
               <div class="mb-1" style="width: 100%; height: 13px; border-bottom: 1px solid black; text-align: center">
                 <span style="font-size: 16px; background: #ffffff; padding: 0 10px"> Or </span>
               </div>
@@ -75,6 +75,7 @@ export default {
     return {
       showPassword: false,
       password: null,
+      id_pegawai: null,
     };
   },
   computed: {
@@ -83,6 +84,18 @@ export default {
     },
   },
   methods: {
+    async doLogin() {
+      const result = await this.$store.dispatch("auth/login", {
+        id_pegawai: this.id_pegawai,
+        password: this.password,
+      });
+
+      if (result) {
+        this.$router.push("/dashboard");
+      } else {
+        this.errorText = this.$store.state.auth.info;
+      }
+    },
     toggleShow() {
       this.showPassword = !this.showPassword;
     },

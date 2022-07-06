@@ -9,6 +9,7 @@ import DashboardView from "../views/DashboardView.vue";
 import InvoiceView from "../views/InvoiceView.vue";
 import ManageAccountView from "../views/ManageAccountView.vue";
 import Default from "../views/DefaultView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -47,17 +48,26 @@ const routes = [
         component: InvoiceView,
       },
     ],
+    meta: {
+      auth: true,
+    },
   },
 
   {
     path: "/",
     name: "login",
     component: LoginView,
+    meta: {
+      token: true,
+    },
   },
   {
     path: "/register",
     name: "register",
     component: RegisterView,
+    meta: {
+      token: true,
+    },
   },
 ];
 
@@ -66,5 +76,67 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
+router.beforeEach((to, _, next) => {
+  const storeString = localStorage.getItem("vuex") || "{}";
+  const store = JSON.parse(storeString);
+  if (to.matched.some((record) => record.meta.auth)) {
+    if (store && !store.auth.token) {
+      next("/register");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+router.beforeEach((to, _, next) => {
+  const storeString = localStorage.getItem("vuex") || "{}";
+  const store = JSON.parse(storeString);
+  if (to.matched.some((record) => record.meta.token)) {
+    if (store && store.auth.token) {
+      next("/dashboard");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+// function nextFactory(context, middleware, index) {
+//   const subsequentMiddleware = middleware[index];
+//   // If no subsequent Middleware exists,
+//   // the default `next()` callback is returned.
+//   if (!subsequentMiddleware) return context.next;
+
+//   return (...parameters) => {
+//     // Run the default Vue Router `next()` callback first.
+//     context.next(...parameters);
+//     // Then run the subsequent Middleware with a new
+//     // `nextMiddleware()` callback.
+//     const nextMiddleware = nextFactory(context, middleware, index + 1);
+//     subsequentMiddleware({ ...context, next: nextMiddleware });
+//   };
+// }
+
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.middleware) {
+//     const middleware = Array.isArray(to.meta.middleware) ? to.meta.middleware : [to.meta.middleware];
+
+//     const context = {
+//       from,
+//       next,
+//       router,
+//       to,
+//     };
+//     const nextMiddleware = nextFactory(context, middleware, 1);
+
+//     return middleware[0]({ ...context, next: nextMiddleware });
+//   }
+
+//   return next();
+// });
 
 export default router;

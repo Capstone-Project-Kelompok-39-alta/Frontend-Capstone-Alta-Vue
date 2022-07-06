@@ -70,7 +70,7 @@
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                   </div>
                 </td>
-                <td>{{ news.title }}</td>
+                <td>{{ news.publishedAt }}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -112,7 +112,12 @@ export default {
   },
   mounted() {
     this.getNews();
-    $("#datatable").DataTable();
+    $("#datatable").DataTable({
+      lengthMenu: [
+        [5, 10, 15],
+        [5, 10, 15],
+      ],
+    });
   },
 };
 </script>
