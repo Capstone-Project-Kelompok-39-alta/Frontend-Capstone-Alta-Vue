@@ -33,7 +33,10 @@ const actions = {
       .catch((error) => {
         console.log("error: ", error);
         alert("Sesion habis, silahkan login kembali");
-        localStorage.setItem("vuex", '{"auth":{"token":""}}');
+        store.commit("auth/setToken", "", {
+          root: true,
+        });
+        window.location.reload();
         store.commit("setError", error.msg);
       });
   },

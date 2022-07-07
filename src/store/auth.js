@@ -8,6 +8,7 @@ const state = () => ({
 
 const mutations = {
   setToken(state, param) {
+    console.log("test", param);
     state.token = param;
   },
   setInfo(state, param) {
