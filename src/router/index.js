@@ -78,32 +78,33 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, _, next) => {
-  const storeString = localStorage.getItem("vuex") || "{}";
-  const store = JSON.parse(storeString);
-  if (to.matched.some((record) => record.meta.auth)) {
-    if (store && !store.auth.token) {
-      next("/register");
-    } else {
-      next();
-    }
+  const store = JSON.parse(localStorage.getItem("vuex")) || null;
+
+  if ((store && !store.auth.token && to.matched.some((record) => record.meta.auth)) || !store) {
+    next("/register");
+    console.log(1);
+  } else if (to.matched.some((record) => record.meta.token) && store && store.auth.token) {
+    next("/dashboard");
+    console.log(2);
   } else {
     next();
+    console.log(3);
   }
 });
 
-router.beforeEach((to, _, next) => {
-  const storeString = localStorage.getItem("vuex") || "{}";
-  const store = JSON.parse(storeString);
-  if (to.matched.some((record) => record.meta.token)) {
-    if (store && store.auth.token) {
-      next("/dashboard");
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
-});
+// router.beforeEach((to, _, next) => {
+//   console.log(2);
+//   const storeString = localStorage.getItem("vuex") || "{}";
+//   const store = JSON.parse(storeString);
+
+//   if (store && store.auth.token && to.matched.some((record) => record.meta.auth)) {
+//     next("/dashboard");
+//   } else if (!store) {
+//     next("/register");
+//   } else {
+//     next();
+//   }
+// });
 
 // function nextFactory(context, middleware, index) {
 //   const subsequentMiddleware = middleware[index];

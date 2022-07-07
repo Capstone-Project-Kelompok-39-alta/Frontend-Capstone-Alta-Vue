@@ -78,10 +78,10 @@ export default {
   data() {
     return {
       showPassword: false,
-      password: null,
+      password: "",
       name: "",
       email: "",
-      id_pegawai: null,
+      id_pegawai: "",
       errorText: "",
     };
   },

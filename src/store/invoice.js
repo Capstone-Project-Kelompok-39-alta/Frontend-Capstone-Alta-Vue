@@ -32,7 +32,7 @@ const actions = {
       })
       .catch((error) => {
         console.log("error: ", error);
-
+        alert("Sesion habis, silahkan login kembali");
         localStorage.setItem("vuex", '{"auth":{"token":""}}');
         store.commit("setError", error.msg);
       });
