@@ -79,9 +79,11 @@ const router = new VueRouter({
 
 router.beforeEach((to, _, next) => {
   const store = JSON.parse(localStorage.getItem("vuex")) || null;
+  console.log(store);
 
-  if ((store && !store.auth.token && to.matched.some((record) => record.meta.auth)) || !store) {
+  if ((store && !store?.auth?.token && to.matched.some((record) => record.meta.auth)) || (!store && to.matched.some((record) => record.meta.auth))) {
     next("/register");
+
     console.log(1);
   } else if (to.matched.some((record) => record.meta.token) && store && store.auth.token) {
     next("/dashboard");
