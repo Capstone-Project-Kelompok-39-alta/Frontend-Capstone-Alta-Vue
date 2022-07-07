@@ -28,7 +28,7 @@ const actions = {
         }
         // {
         //   headers: {
-        //     "Authorization": "Bearer "+state.token,
+        //     Authorization: `Bearer ${store.state.token}`,
         //     "Content-type": "application/json",
         //   },
         // }
@@ -72,47 +72,47 @@ const actions = {
           return response;
         } else {
           store.commit("setInfo", response.data.message);
+          console.log(store.state.info);
         }
       })
       .catch((error) => {
-        console.log("error nya adalah", error);
-        store.commit("setInfo", error);
+        store.commit("setInfo", error.response.data.message);
+        console.log("erornya ", store.state.info);
       });
   },
   logout(store) {
     store.commit("setToken", "");
-
     return true;
   },
-  checkUser(store, id) {
-    return axios
-      .get(`${apiHost}/api/users/${id}`, {
-        headers: { Authorization: `Bearer ${store.state.token}` },
-      })
-      .then((response) => {
-        console.warwn("response cekUser", response);
-        if (response.data.message === "success") {
-          store.commit("setToken", response.data.data.Token);
-          store.commit(
-            "user/setCurrentUser",
-            {
-              id: response.data.data.Id,
-              username: response.data.data.Name,
-              email: response.data.data.Email,
-            },
-            {
-              root: true,
-            }
-          );
-          return response;
-        } else {
-          store.commit("setInfo", response.data.message);
-        }
-      })
-      .catch((error) => {
-        store.commit("setInfo", error);
-      });
-  },
+  // checkUser(store, id) {
+  //   return axios
+  //     .get(`${apiHost}/api/users/${id}`, {
+  //       headers: { Authorization: `Bearer ${store.state.token}` },
+  //     })
+  //     .then((response) => {
+  //       console.warwn("response cekUser", response);
+  //       if (response.data.message === "success") {
+  //         store.commit("setToken", response.data.data.Token);
+  //         store.commit(
+  //           "user/setCurrentUser",
+  //           {
+  //             id: response.data.data.Id,
+  //             username: response.data.data.Name,
+  //             email: response.data.data.Email,
+  //           },
+  //           {
+  //             root: true,
+  //           }
+  //         );
+  //         return response;
+  //       } else {
+  //         store.commit("setInfo", response.data.message);
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       store.commit("setInfo", error);
+  //     });
+  // },
 };
 
 export default {

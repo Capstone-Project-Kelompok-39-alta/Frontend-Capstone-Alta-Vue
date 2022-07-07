@@ -6,7 +6,7 @@ const state = () => ({
 });
 
 const mutations = {
-  setNews(state, param) {
+  setInvoice(state, param) {
     state.lists = param;
   },
   setError(state, param) {
@@ -16,15 +16,24 @@ const mutations = {
 
 const actions = {
   fetchListNews(store) {
+    const storeString = localStorage.getItem("vuex") || "{}";
+    const local = JSON.parse(storeString);
+    console.log(local);
     axios
-      .get(`https://newsapi.org/v2/top-headlines?country=us&apiKey=9ae9cac9efed4439ad6502ab929ab3ec`)
+      .get(`http://34.229.142.244/admin/invoice`, {
+        headers: {
+          Authorization: `Bearer ${store.rootState.auth.token}`,
+        },
+      })
       .then((response) => {
         console.log("response: ", response);
         // response.data.articles
-        store.commit("setNews", response.data.articles);
+        store.commit("setInvoice", response.data.articles);
       })
       .catch((error) => {
         console.log("error: ", error);
+
+        localStorage.setItem("vuex", '{"auth":{"token":""}}');
         store.commit("setError", error.msg);
       });
   },

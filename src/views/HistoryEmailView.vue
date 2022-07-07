@@ -90,7 +90,7 @@
                     </div>
                     <div class="row mt-4 mb-5">
                       <div class="d-flex">
-                        <button class="btn btn-secondary mx-auto text-dark fw-bold text-start" data-bs-dismiss="modal" style="height: 70px; width: 90%" type="button">Sign out</button>
+                        <button class="btn btn-secondary mx-auto text-dark fw-bold text-start" data-bs-dismiss="modal" style="height: 70px; width: 90%" type="button" @click="doLogOut()">Sign out</button>
                       </div>
                     </div>
                   </div>
@@ -112,6 +112,21 @@ export default {
   data() {
     return {};
   },
+  methods: {
+    manageAccount() {
+      this.$router.push("/account");
+    },
+    async doLogOut() {
+      const result = await this.$store.dispatch("auth/logout");
+
+      if (result) {
+        alert("Logout Sukses");
+        this.$router.push("/");
+      } else {
+        this.errorText = this.$store.state.auth.info;
+      }
+    },
+  },
 };
 </script>
 <style scoped>
@@ -132,5 +147,27 @@ input {
 
 .inputHistory {
   padding: 10px;
+}
+.btn-secondary {
+  background: #fff !important;
+  color: #25a559;
+  border-color: #25a559 !important;
+  border-radius: 32px;
+}
+.profile {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+.modal-body {
+  margin: 0;
+  padding: 0;
+}
+.low-profile {
+  margin-top: 60px;
+}
+.top-profile {
+  height: 196px;
+  background-color: #f1f1f1;
+  width: 100% !important;
 }
 </style>

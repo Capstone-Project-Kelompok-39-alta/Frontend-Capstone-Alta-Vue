@@ -13,14 +13,14 @@
           <form>
             <!-- Email input -->
             <div class="form-floating mb-4">
-              <input style="border-radius: 32px" type="number" id="inputNip" v-model.number="id_pegawai" class="form-control" placeholder="Nomer Induk Pegawai" />
+              <input style="border-radius: 32px" type="number" id="inputNip" v-model.number="id_pegawai" class="form-control" placeholder="Nomer Induk Pegawai" required />
               <label for="inputNip">Nomer Induk Pegawai</label>
             </div>
 
             <!-- Password input -->
             <div class="form-floating input-group mb-4">
-              <input style="border-top-left-radius: 32px; border-bottom-left-radius: 32px" v-if="showPassword" type="text" id="inputPassword" class="form-control" placeholder="Password" v-model="password" />
-              <input style="border-top-left-radius: 32px; border-bottom-left-radius: 32px" v-else type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="password" />
+              <input style="border-top-left-radius: 32px; border-bottom-left-radius: 32px" v-if="showPassword" type="text" id="inputPassword" class="form-control" placeholder="Password" v-model="password" required />
+              <input style="border-top-left-radius: 32px; border-bottom-left-radius: 32px" v-else type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="password" required />
               <label for="inputPassword">Password</label>
               <div style="border-top-right-radius: 32px; border-bottom-right-radius: 32px; background: #ffffff" class="input-group-text">
                 <i class="bi" :class="{ 'bi-eye-slash-fill': showPassword, 'bi-eye-fill': !showPassword }" @click="toggleShow"></i>
@@ -74,8 +74,8 @@ export default {
   data() {
     return {
       showPassword: false,
-      password: null,
-      id_pegawai: null,
+      password: "",
+      id_pegawai: "",
     };
   },
   computed: {
@@ -85,15 +85,18 @@ export default {
   },
   methods: {
     async doLogin() {
-      const result = await this.$store.dispatch("auth/login", {
-        id_pegawai: this.id_pegawai,
-        password: this.password,
-      });
-
-      if (result) {
-        this.$router.push("/dashboard");
+      if (this.id_pegawai === "" && this.password === "") {
+        alert("Harap Isi field dengan benar");
       } else {
-        this.errorText = this.$store.state.auth.info;
+        const result = await this.$store.dispatch("auth/login", {
+          id_pegawai: this.id_pegawai,
+          password: this.password,
+        });
+        if (result) {
+          this.$router.push("/dashboard");
+        } else {
+          alert(this.$store.state.auth.info);
+        }
       }
     },
     toggleShow() {

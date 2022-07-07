@@ -97,7 +97,7 @@
                     </div>
                     <div class="row mt-4 mb-5">
                       <div class="d-flex">
-                        <button class="btn btn-secondary mx-auto text-dark fw-bold text-start" data-bs-dismiss="modal" style="height: 70px; width: 90%" type="button">Sign out</button>
+                        <button class="btn btn-secondary mx-auto text-dark fw-bold text-start" data-bs-dismiss="modal" style="height: 70px; width: 90%" type="button" @click="doLogOut()">Sign out</button>
                       </div>
                     </div>
                   </div>
@@ -122,6 +122,16 @@ export default {
   methods: {
     manageAccount() {
       this.$router.push("/account");
+    },
+    async doLogOut() {
+      const result = await this.$store.dispatch("auth/logout");
+
+      if (result) {
+        alert("Logout Sukses");
+        this.$router.push("/");
+      } else {
+        this.errorText = this.$store.state.auth.info;
+      }
     },
   },
 };
