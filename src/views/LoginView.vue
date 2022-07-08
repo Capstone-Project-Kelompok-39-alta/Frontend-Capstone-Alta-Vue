@@ -36,7 +36,7 @@
 
             <!-- Submit button -->
             <div class="d-grid gap-2 col-12 mx-auto">
-              <button style="border-radius: 32px" class="btn btn-primary btn-lg" type="button" @click="testLogin()">Sign In</button>
+              <button style="border-radius: 32px" class="btn btn-primary btn-lg" type="button" @click="doLogin()">Sign In</button>
               <div class="mb-1" style="width: 100%; height: 13px; border-bottom: 1px solid black; text-align: center">
                 <span style="font-size: 16px; background: #ffffff; padding: 0 10px"> Or </span>
               </div>
@@ -84,14 +84,14 @@ export default {
     },
   },
   methods: {
-    testLogin() {
-      if (this.id_pegawai === "" && this.password === "") {
-        alert("harus disini setidaknya 1");
-      } else {
-        alert("selamat masuk");
-        window.location.reload();
-      }
-    },
+    // testLogin() {
+    //   if (this.id_pegawai === "" && this.password === "") {
+    //     alert("harus disini setidaknya 1");
+    //   } else {
+    //     alert("selamat masuk");
+    //     window.location.reload();
+    //   }
+    // },
     async doLogin() {
       if (this.id_pegawai === "" && this.password === "") {
         alert("Harap Isi field dengan benar");
