@@ -48,7 +48,7 @@
             <div class="w-50 ms-5" style="font-size: 48px; color: #13532d; font-weight: 700">Make Your Invoice with Invoinesia</div>
             <div class="vstack">
               <form>
-                <div><input type="file" class="ms-5 btn-lg mt-5" id="myFile" name="filename" /></div>
+                <div><input type="file" accept=".csv" class="ms-5 btn-lg mt-5" id="myFile" name="filename" /></div>
                 <div><button style="border-radius: 32px" class="ms-5 btn btn-primary btn-lg mt-2" type="button">Upload Your File</button></div>
               </form>
             </div>
