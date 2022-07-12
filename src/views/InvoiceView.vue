@@ -50,8 +50,8 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <table class="table ms-5" id="datatable" style="width: 90%">
+        <div class="row ms-5 me-5">
+          <table class="table" id="datatable" style="width: 90%">
             <thead>
               <tr>
                 <th scope="col"></th>
@@ -64,17 +64,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(news, index) in listNews" :key="index">
+              <tr v-for="(list, index) in listInvoices" :key="index">
                 <td>
                   <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
                   </div>
                 </td>
-                <td>{{ news.publishedAt }}</td>
+                <td>{{ index + 1 }}</td>
                 <td></td>
+                <td>{{ list.buyer_name }}</td>
                 <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ list.total }}</td>
                 <td><button class="btn btn-danger" style="border-radius: 32px">Unpaid</button> <button class="btn btn-secondary" style="border-radius: 32px">Detail</button></td>
               </tr>
             </tbody>
@@ -136,11 +136,12 @@ export default {
     return {};
   },
   computed: {
-    listNews() {
+    listInvoices() {
       return this.$store.state.invoice.lists;
     },
+
     errorMessage() {
-      if (this.$store.state.news.error !== "") {
+      if (this.$store.state.invoice.error !== "") {
         return true;
       }
       return false;
@@ -150,8 +151,8 @@ export default {
     manageAccount() {
       this.$router.push("/account");
     },
-    getNews() {
-      this.$store.dispatch("invoice/fetchListNews");
+    getInvoices() {
+      this.$store.dispatch("invoice/fetchListInvoice");
     },
     async doLogOut() {
       const result = await this.$store.dispatch("auth/logout");
@@ -165,7 +166,7 @@ export default {
     },
   },
   mounted() {
-    this.getNews();
+    this.getInvoices();
     $("#datatable").DataTable({
       lengthMenu: [
         [5, 10, 15],
@@ -173,6 +174,7 @@ export default {
       ],
     });
   },
+  created() {},
 };
 </script>
 <style scoped>

@@ -48,52 +48,22 @@
             <div class="w-50 ms-5" style="font-size: 48px; color: #13532d; font-weight: 700">Make Your Invoice with Invoinesia</div>
             <div class="vstack">
               <form>
-                <div><input type="file" accept=".csv" class="ms-5 btn-lg mt-5" id="myFile" name="filename" /></div>
-                <div><button style="border-radius: 32px" class="ms-5 btn btn-primary btn-lg mt-2" type="button">Upload Your File</button></div>
+                <label for="inputFile" style="border-radius: 32px" class="ms-5 btn btn-primary btn-lg mt-2">
+                  <input type="file" id="inputFile" accept=".csv" @change="importFile" />
+                  Upload Your File
+                </label>
               </form>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="d-flex bd-highlight mb-3">
-            <div class="me-auto p-2 bd-highlight">
-              <p class="ms-5" style="font-size: 24px; font-weight: 700">Recent Invoices</p>
-            </div>
-
-            <div class="p-2 bd-highlight me-5">
-              <p style="font-size: 18px; font-weight: 400">See More</p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <table class="table ms-5" style="width: 90%">
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">No Invoice</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Client Name</th>
-                <th scope="col">Category</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                  </div>
-                </td>
-                <td>PQ-1124D</td>
-                <td>08/05/22</td>
-                <td>Nama Client</td>
-                <td>Telkom</td>
-                <td>$242,55</td>
-                <td><button class="btn btn-danger" style="border-radius: 32px">Unpaid</button> <button class="btn btn-secondary">Detail</button></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="row ms-5 tutorial">
+          <p class="fw-bold tutorial-header">Silakan ikuti langkah-langkah berikut untuk mengunggah data invoice Anda</p>
+          <ol class="ps-4 tutorial-point">
+            <li>Pastikan Anda sudah memiliki data Produk dan Client</li>
+            <li>Pastikan File yang ingin diunggah memiliki ekstensi .csv dan ukuran tidak lebih dari 1 MB</li>
+            <li>Pastikan data Anda sudah memiliki kolom No. Invoice, Kode Client, Tanggal Jatuh Tempo, Nama Client, Nama Produk, Harga Produk</li>
+            <li>Format tanggal DD/MM/YYYY</li>
+          </ol>
         </div>
 
         <!-- Modal -->
@@ -164,6 +134,27 @@ export default {
         this.errorText = this.$store.state.auth.info;
       }
     },
+    getInvoices() {
+      this.$store.dispatch("invoice/fetchListInvoice");
+    },
+    async importFile(e) {
+      let fileName = e.target.files[0];
+      console.log(e);
+      console.log(fileName);
+      let csv = new FormData();
+      csv.append("csv_file", fileName);
+      const result = await this.$store.dispatch("invoice/inputInvoice", {
+        csv_file: csv,
+      });
+      if (result) {
+        alert("Input File Berhasil");
+      } else {
+        alert("Input File Gagal", this.errorMsg);
+      }
+    },
+  },
+  mounted() {
+    this.getInvoices();
   },
   computed: {
     jwtToken() {
@@ -173,6 +164,18 @@ export default {
 };
 </script>
 <style scoped>
+.tutorial {
+  color: #808080;
+}
+.tutorial-header {
+  font-size: 24px;
+}
+.tutorial-point {
+  font-size: 20px;
+}
+input[type="file"] {
+  display: none;
+}
 .profile {
   padding-left: 0.75rem;
   padding-right: 0.75rem;

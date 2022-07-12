@@ -1,5 +1,5 @@
 import axios from "axios";
-// const apiHost = `http://34.229.142.244`;
+const apiHost = `http://34.229.142.244`;
 
 const state = () => ({
   token: "",
@@ -20,7 +20,7 @@ const actions = {
   register(store, credentials) {
     const result = axios
       .post(
-        `/api/admin/register`,
+        `${apiHost}/admin/register`,
         {
           email: credentials.email,
           id_pegawai: credentials.id_pegawai,
@@ -51,7 +51,7 @@ const actions = {
   },
   login(store, credentials) {
     return axios
-      .post(`/api/admin/login`, {
+      .post(`${apiHost}/admin/login`, {
         id_pegawai: credentials.id_pegawai,
         password: credentials.password,
       })
