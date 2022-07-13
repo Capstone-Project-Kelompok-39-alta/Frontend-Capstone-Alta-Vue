@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import auth from "./auth";
+import email from "./email";
+import user from "./user";
 import invoice from "./invoice";
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
@@ -17,6 +19,14 @@ export default new Vuex.Store({
     invoice: {
       namespaced: true,
       ...invoice,
+    },
+    email: {
+      namespaced: true,
+      ...email,
+    },
+    user: {
+      namespaced: true,
+      ...user,
     },
   },
 });

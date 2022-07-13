@@ -76,8 +76,8 @@
                 <td>{{ list.buyer_phone }}</td>
                 <td>{{ list.total }}</td>
                 <td>
-                  <button class="btn btn-secondary" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#exampleModal2" @click="getDetail(list)">Detail</button>
-                  <button class="btn btn-primary ms-2 px-3" style="border-radius: 32px">Send</button>
+                  <button class="btn btn-secondary" style="cursor: pointer">Detail</button>
+                  <button class="btn btn-primary ms-2 px-3" style="border-radius: 32px" data-bs-toggle="modal" data-bs-target="#exampleModal2" @click="getDetail(list)">Send</button>
                 </td>
               </tr>
             </tbody>
@@ -109,7 +109,7 @@
                         <div class="d-flex mb-5 mt-4">
                           <div class="mx-auto">
                             <button type="button" class="btn btn-secondary me-5" style="width: 205px" data-bs-dismiss="modal">Cancel</button
-                            ><button type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px">Send</button>
+                            ><button type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px" @click="sendEmail()">Send</button>
                           </div>
                         </div>
                       </form>
@@ -210,6 +210,19 @@ export default {
       console.log(isiEmail);
       console.log(list);
       console.log(this.isiEmail);
+    },
+
+    async sendEmail() {
+      const result = await this.$store.dispatch("email/sendEmail", {
+        to: this.email,
+        subject: this.subject,
+        body: this.isi,
+      });
+      if (result) {
+        alert("Email Berhasil terkirim");
+      } else {
+        alert("Email tidak terkirim");
+      }
     },
     manageAccount() {
       this.$router.push("/account");

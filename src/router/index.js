@@ -82,7 +82,7 @@ router.beforeEach((to, _, next) => {
   console.log(store);
 
   if ((store && !store?.auth?.token && to.matched.some((record) => record.meta.auth)) || (!store && to.matched.some((record) => record.meta.auth))) {
-    next("/register");
+    next("/");
 
     console.log(1);
   } else if (to.matched.some((record) => record.meta.token) && store && store.auth.token) {

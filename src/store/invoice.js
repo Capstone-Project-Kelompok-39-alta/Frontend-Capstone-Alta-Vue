@@ -45,7 +45,7 @@ const actions = {
       .catch((error) => {
         console.log("error: ", error);
         store.commit("setError", error);
-        alert("Sesion habis, silahkan login kembali");
+        alert("API EROR");
         store.commit("auth/setToken", "", {
           root: true,
         });

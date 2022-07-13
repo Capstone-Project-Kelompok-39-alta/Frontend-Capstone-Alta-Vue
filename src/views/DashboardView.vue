@@ -81,11 +81,13 @@
                       </div>
                     </div>
                   </div>
-                  <div class="low-profile">
+                  <div class="low-profile" v-for="(user, index) in user" :key="index">
                     <div class="row">
-                      <div class="text-center fw-bold" style="font-size: 24px">Kelompok 39</div>
+                      <div class="text-center fw-bold" style="font-size: 24px">{{ user.name }}</div>
                     </div>
-                    <div class="row"><div class="text-center" style="font-size: 18px; font-weight: 400">Kelompok39@gmail.com</div></div>
+                    <div class="row">
+                      <div class="text-center" style="font-size: 18px; font-weight: 400">{{ user.email }}</div>
+                    </div>
                     <div class="row mt-4">
                       <div class="d-flex">
                         <button class="btn btn-secondary mx-auto text-dark fw-bold" data-bs-dismiss="modal" @click="manageAccount()" style="height: 70px; width: 90%" type="button">
@@ -137,6 +139,9 @@ export default {
     getInvoices() {
       this.$store.dispatch("invoice/fetchListInvoice");
     },
+    getUser() {
+      this.$store.dispatch("user/checkUser");
+    },
     async importFile(e) {
       let fileName = e.target.files[0];
       console.log(e);
@@ -155,10 +160,14 @@ export default {
   },
   mounted() {
     this.getInvoices();
+    this.getUser();
   },
   computed: {
     jwtToken() {
       return this.$store.state.auth.token;
+    },
+    user() {
+      return this.$store.state.user.user;
     },
   },
 };
