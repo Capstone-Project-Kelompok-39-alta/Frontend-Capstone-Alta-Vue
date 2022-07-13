@@ -51,35 +51,76 @@
           </div>
         </div>
         <div class="row ms-5 me-5">
-          <table class="table" id="datatable" style="width: 90%">
+          <table class="table" id="datatable">
             <thead>
               <tr>
                 <th scope="col"></th>
                 <th scope="col">No Invoice</th>
-                <th scope="col">Date Created</th>
+                <th scope="col">Due Date</th>
                 <th scope="col">Client Name</th>
-                <th scope="col">Category</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
                 <th scope="col">Amount</th>
-                <th scope="col">Status</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(list, index) in listInvoices" :key="index">
                 <td>
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                  </div>
+                  {{ index + 1 }}
                 </td>
-                <td>{{ index + 1 }}</td>
-                <td></td>
+                <td>{{ list.id }}</td>
+                <td>{{ list.due_date }}</td>
                 <td>{{ list.buyer_name }}</td>
-                <td></td>
+                <td>{{ list.buyer_email }}</td>
+                <td>{{ list.buyer_phone }}</td>
                 <td>{{ list.total }}</td>
-                <td><button class="btn btn-danger" style="border-radius: 32px">Unpaid</button> <button class="btn btn-secondary" style="border-radius: 32px">Detail</button></td>
+                <td>
+                  <button class="btn btn-secondary" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#exampleModal2" @click="getDetail(list)">Detail</button>
+                  <button class="btn btn-primary ms-2 px-3" style="border-radius: 32px">Send</button>
+                </td>
               </tr>
             </tbody>
           </table>
+          <!-- modal send email -->
+          <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header d-flex header-email">
+                  <h5 class="modal-title fw-bold mx-auto text-white" id="exampleModalLabel">Send Email</h5>
+                </div>
+                <div class="modal-body">
+                  <div class="container-fluid profile">
+                    <div class="d-flex">
+                      <form class="mx-auto">
+                        <div class="mb-3">
+                          <label for="name" class="form-label fw-bold">To</label>
+                          <input type="text" class="form-control" id="name" v-model="email" aria-describedby="emailHelp" />
+                        </div>
+                        <div class="mb-3">
+                          <label for="nip" class="form-label fw-bold">Subject</label>
+                          <input type="text" class="form-control" id="nip" v-model="subject" aria-describedby="emailHelp" />
+                        </div>
+                        <div class="mb-3">
+                          <label for="inputEmail" class="form-label fw-bold">Email</label>
+                          <textarea type="text" class="form-control" id="inputEmail" rows="10" v-model="isi" />
+                        </div>
 
+                        <div class="d-flex mb-5 mt-4">
+                          <div class="mx-auto">
+                            <button type="button" class="btn btn-secondary me-5" style="width: 205px" data-bs-dismiss="modal">Cancel</button
+                            ><button type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px">Send</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- modal profil -->
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -133,7 +174,14 @@ export default {
     SidebarNav,
   },
   data() {
-    return {};
+    return {
+      id: "",
+      name: "",
+      email: "",
+      subject: "Invoice Email",
+      total: "",
+      isi: "",
+    };
   },
   computed: {
     listInvoices() {
@@ -148,6 +196,21 @@ export default {
     },
   },
   methods: {
+    getDetail(list) {
+      this.id = list.id;
+      this.email = list.buyer_email;
+      this.total = list.total;
+      let isiEmail = `Kepada Yth, \nBapak/Ibu Abang Agus\nBerikut terlampir Invoice #PQ-1124D sebesar Rp ${this.total}
+
+                    No. Invoice : PQ-1124D
+                    Jatuh Tempo : 27/05/22
+                    Jumlah      : Rp. ${this.total}
+                    No. Telp    : 02123456789\n\nMohon segera lakukan pembayaran sebelum tanggal jatuh tempo.\nJika ada pertanyaan, silahkan hubungi customer service kami.\nTerima kasih atas kepercayaan Anda terhadap kami.\n\nSalam Hormat,\nInvoinesia`;
+      this.isi = isiEmail;
+      console.log(isiEmail);
+      console.log(list);
+      console.log(this.isiEmail);
+    },
     manageAccount() {
       this.$router.push("/account");
     },
@@ -178,6 +241,10 @@ export default {
 };
 </script>
 <style scoped>
+.header-email {
+  background: #25a559;
+  height: 135px;
+}
 .profile {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
