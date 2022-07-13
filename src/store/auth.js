@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiHost = `http://34.229.142.244`;
+const apiHost = `https://invoinesia.xyz`;
 
 const state = () => ({
   token: "",
