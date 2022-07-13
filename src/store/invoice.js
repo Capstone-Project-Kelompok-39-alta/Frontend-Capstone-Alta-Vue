@@ -32,10 +32,18 @@ const actions = {
       .then((response) => {
         console.log("response: ", response);
         // response.data.articles
-        store.commit("setInvoice", response.data.data);
+        if (response.status === 200) {
+          store.commit("setInvoice", response.data.data);
+        } else if (response.status === 401) {
+          alert("Sesion habis, silahkan login kembali");
+          store.commit("auth/setToken", "", {
+            root: true,
+          });
+          window.location.reload();
+        }
       })
       .catch((error) => {
-        console.log("error: ", error.data.message);
+        console.log("error: ", error);
         store.commit("setError", error);
         alert("Sesion habis, silahkan login kembali");
         store.commit("auth/setToken", "", {
@@ -55,14 +63,19 @@ const actions = {
         console.log("respon: ", response);
         if (response.status === 201) {
           return true;
-        } else {
-          store.commit("setInfo", response.message);
+        } else if (response.status === 401) {
+          store.commit("setInfo", response);
+          alert("Sesion habis, silahkan login kembali");
+          store.commit("auth/setToken", "", {
+            root: true,
+          });
+          window.location.reload();
         }
       })
       .catch((error) => {
         console.log("error nya adalah", error);
         store.commit("setInfo", error);
-        alert("Sesion habis, silahkan login kembali");
+        alert("Error : ", error);
         store.commit("auth/setToken", "", {
           root: true,
         });

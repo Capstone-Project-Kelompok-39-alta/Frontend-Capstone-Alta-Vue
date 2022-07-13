@@ -58,6 +58,9 @@ const actions = {
       .then((response) => {
         if (response.status === 200) {
           store.commit("setToken", response.data.data);
+          // store.commit("user/setId", response.data.id, {
+          //   root: true,
+          // });
           // store.commit(
           //   "user/setCurrentUser",
           //   {
