@@ -17,34 +17,16 @@
             </div>
           </div>
         </div>
-        <div class="row ms-5 mb-5 d-flex">
-          <div class="card-dropdown fw-bold">
-            <div class="ms-3">Last</div>
 
-            <select class="form-select" aria-label="Default select example">
-              <option value="1">30 Days</option>
-              <option value="2">2 Weeks</option>
-              <option value="3">1 Week</option>
-            </select>
-          </div>
-
-          <div class="card-custom d-flex ms-5">
-            <img class="img-fluid my-auto w-25" src="../assets/material-symbols_paid.svg" alt="" />
-            <div class="flex-coloumn">
-              <div class="mt-3 ms-3">Transaction</div>
-              <div class="mt-2 ms-3 fw-bold">65</div>
-            </div>
-          </div>
-        </div>
         <div class="row">
           <div class="d-flex bd-highlight mb-3">
             <div class="me-auto p-2 bd-highlight">
-              <p class="ms-5" style="font-size: 24px; font-weight: 700">Recent Invoices</p>
+              <p class="ms-5" style="font-size: 24px; font-weight: 700">All Payment</p>
             </div>
           </div>
         </div>
-        <div class="row">
-          <table class="table ms-5" style="width: 90%">
+        <div class="row ms-5 me-5">
+          <table class="table" id="datatable">
             <thead>
               <tr>
                 <th scope="col">No</th>
@@ -112,6 +94,7 @@
 </template>
 <script>
 import SidebarNav from "@/components/SidebarNav.vue";
+import $ from "jquery";
 export default {
   components: {
     SidebarNav,
@@ -133,6 +116,20 @@ export default {
         this.errorText = this.$store.state.auth.info;
       }
     },
+  },
+  mounted() {
+    $("#datatable").DataTable({
+      lengthMenu: [
+        [5, 10, 15],
+        [5, 10, 15],
+      ],
+      // columnDefs: [
+      //   {
+      //     targets: ,
+      //     render: $.fn.dataTable.render.ellipsis(17, true),
+      //   },
+      // ],
+    });
   },
 };
 </script>
@@ -181,6 +178,9 @@ select {
   border-radius: 32px;
 }
 .btn-secondary:hover {
+  color: #25a559 !important;
+}
+.btn-secondary:not(:hover) {
   color: #25a559 !important;
 }
 .btn-primary {

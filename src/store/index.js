@@ -7,7 +7,7 @@ import invoice from "./invoice";
 import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 const persistedDataState = createPersistedState({
-  paths: ["auth.token", "invoice.lists"],
+  paths: ["auth.token", "invoice.lists", "user.id"],
 });
 export default new Vuex.Store({
   plugins: [persistedDataState],

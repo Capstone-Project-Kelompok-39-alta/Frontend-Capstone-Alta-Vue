@@ -73,6 +73,7 @@ const actions = {
           //   }
           // );
           console.log(response.data);
+
           return response;
         } else {
           store.commit("setInfo", response.data.message);

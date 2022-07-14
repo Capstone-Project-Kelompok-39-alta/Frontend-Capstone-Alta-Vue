@@ -25,32 +25,34 @@
             </div>
           </div>
         </div>
-        <div class="row ms-1 mb-2">
-          <div class="fw-bold user-profile d-flex mx-auto" style="font-size: 32px">User Profile</div>
-        </div>
-        <div class="row mb-4">
-          <div class="line-horizontal d-flex mx-auto"></div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-5 fw-bold">Nama</div>
-          <div class="col-5 fw-bold">Email</div>
-        </div>
-        <div class="row justify-content-center mb-3">
-          <div class="col-5">Kelompok 39</div>
-          <div class="col-5">kelompok39@gmail.com</div>
-        </div>
+        <div>
+          <div class="row ms-1 mb-2">
+            <div class="fw-bold user-profile d-flex mx-auto" style="font-size: 32px">User Profile</div>
+          </div>
+          <div class="row mb-4">
+            <div class="line-horizontal d-flex mx-auto"></div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-5 fw-bold">Nama</div>
+            <div class="col-5 fw-bold">Email</div>
+          </div>
+          <div class="row justify-content-center mb-3">
+            <div class="col-5">{{ user.name }}</div>
+            <div class="col-5">{{ user.email }}</div>
+          </div>
 
-        <div class="row justify-content-center">
-          <div class="col-5 fw-bold">Nomor Induk Pegawai</div>
-          <div class="col-5 fw-bold">Password</div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-5">111293736576826</div>
-          <div class="col-5">************</div>
-        </div>
-        <div class="row">
-          <div class="d-flex bd-highlight mb-3">
-            <div class="ms-auto p-2 bd-highlight me-5"><button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-primary radius32">Edit</button></div>
+          <div class="row justify-content-center">
+            <div class="col-5 fw-bold">Nomor Induk Pegawai</div>
+            <div class="col-5 fw-bold">Password</div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-5">{{ user.id_pegawai }}</div>
+            <div class="col-5">{{ user.password }}</div>
+          </div>
+          <div class="row">
+            <div class="d-flex bd-highlight mb-3">
+              <div class="ms-auto p-2 bd-highlight me-5"><button data-bs-toggle="modal" data-bs-target="#exampleModal2" class="btn btn-primary radius32">Edit</button></div>
+            </div>
           </div>
         </div>
         <!-- Modal Edit Profile-->
@@ -158,6 +160,11 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    user() {
+      return this.$store.state.user.user;
+    },
+  },
   methods: {
     manageAccount() {
       this.$router.push("/account");
@@ -172,6 +179,12 @@ export default {
         this.errorText = this.$store.state.auth.info;
       }
     },
+    getUser() {
+      this.$store.dispatch("user/checkUser");
+    },
+  },
+  mounted() {
+    this.getUser();
   },
 };
 </script>

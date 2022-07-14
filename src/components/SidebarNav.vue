@@ -8,9 +8,7 @@
         <li class="mb-4">
           <router-link style="text-decoration: none" to="/invoice"><i class="bi bi-receipt"></i> Invoices</router-link>
         </li>
-        <li class="mb-4">
-          <router-link style="text-decoration: none" to="/clients"><i class="bi bi-people-fill"></i> Clients</router-link>
-        </li>
+
         <li class="mb-4">
           <router-link style="text-decoration: none" to="/transaction"><i class="bi bi-list-ul"></i> Transaction</router-link>
         </li>

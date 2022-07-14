@@ -17,32 +17,7 @@
             </div>
           </div>
         </div>
-        <div class="row ms-5 mb-5">
-          <div class="card-custom d-flex">
-            <img class="img-fluid my-auto w-25" src="../assets/material-symbols_paid.svg" alt="" />
-            <div class="flex-coloumn">
-              <div class="mt-3 ms-3">Begin</div>
-              <div class="mt-2 ms-3" style="font-weight: 700">08/05/22</div>
-            </div>
-            <div class="mt-5 ms-3 px-2 pb-4 bg-success my-auto text-white" style="height: 20px; border-radius: 16px">12 <img class="img-fluid my-auto" src="../assets/bi_arrow-down.svg" alt="" /></div>
-          </div>
-          <div class="card-custom d-flex">
-            <img class="img-fluid my-auto w-25" src="../assets/bi_clock-fill.svg" alt="" />
-            <div class="flex-coloumn">
-              <div class="mt-3 ms-3">End Date</div>
-              <div class="mt-2 ms-3" style="font-weight: 700">12/05/22</div>
-            </div>
-            <div class="mt-5 ms-2 px-2 pb-4 bg-success my-auto text-white" style="height: 20px; border-radius: 16px">12 <img class="img-fluid my-auto" src="../assets/bi_arrow-down.svg" alt="" /></div>
-          </div>
-          <div class="card-custom d-flex">
-            <img class="img-fluid my-auto w-25" src="../assets/user_vector.svg" alt="" />
-            <div class="flex-coloumn">
-              <div class="mt-3 ms-3">Status</div>
-              <div class="mt-2 ms-3" style="font-weight: 700">Any</div>
-            </div>
-            <div class="mt-5 ms-3 px-2 pb-4 bg-success my-auto text-white" style="height: 20px; border-radius: 16px">12 <img class="img-fluid my-auto" src="../assets/bi_arrow-down.svg" alt="" /></div>
-          </div>
-        </div>
+
         <div class="row">
           <div class="d-flex bd-highlight mb-3">
             <div class="me-auto p-2 bd-highlight">
@@ -72,12 +47,12 @@
                 <td>{{ list.id }}</td>
                 <td>{{ list.due_date }}</td>
                 <td>{{ list.buyer_name }}</td>
-                <td>{{ list.buyer_email }}</td>
+                <td>{{ truncate(list.buyer_email, 5) }}</td>
                 <td>{{ list.buyer_phone }}</td>
                 <td>{{ list.total }}</td>
                 <td>
                   <button class="btn btn-secondary" style="cursor: pointer">Detail</button>
-                  <button class="btn btn-primary ms-2 px-3" style="border-radius: 32px" data-bs-toggle="modal" data-bs-target="#exampleModal2" @click="getDetail(list)">Send</button>
+                  <button class="btn btn-primary" style="border-radius: 32px" data-bs-toggle="modal" data-bs-target="#exampleModal2" @click="getDetail(list)">Send</button>
                 </td>
               </tr>
             </tbody>
@@ -109,7 +84,12 @@
                         <div class="d-flex mb-5 mt-4">
                           <div class="mx-auto">
                             <button type="button" class="btn btn-secondary me-5" style="width: 205px" data-bs-dismiss="modal">Cancel</button
-                            ><button type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px" @click="sendEmail()">Send</button>
+                            ><button v-if="isLoading == false" type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px" @click="sendEmail()">Send</button>
+                            <button v-if="isLoading == true" type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px">
+                              <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                              </div>
+                            </button>
                           </div>
                         </div>
                       </form>
@@ -181,6 +161,7 @@ export default {
       subject: "Invoice Email",
       total: "",
       isi: "",
+      isLoading: false,
     };
   },
   computed: {
@@ -196,6 +177,9 @@ export default {
     },
   },
   methods: {
+    truncate(str, n) {
+      return str.length > n ? str.substr(0, n - 1) + `...` : str;
+    },
     getDetail(list) {
       this.id = list.id;
       this.email = list.buyer_email;
@@ -213,16 +197,19 @@ export default {
     },
 
     async sendEmail() {
+      this.isLoading = true;
       const result = await this.$store.dispatch("email/sendEmail", {
         to: this.email,
         subject: this.subject,
         body: this.isi,
       });
+
       if (result) {
         alert("Email Berhasil terkirim");
       } else {
         alert("Email tidak terkirim");
       }
+      this.isLoading = false;
     },
     manageAccount() {
       this.$router.push("/account");
@@ -248,6 +235,12 @@ export default {
         [5, 10, 15],
         [5, 10, 15],
       ],
+      // columnDefs: [
+      //   {
+      //     targets: ,
+      //     render: $.fn.dataTable.render.ellipsis(17, true),
+      //   },
+      // ],
     });
   },
   created() {},
@@ -288,6 +281,10 @@ export default {
 .btn-secondary:hover {
   color: #25a559 !important;
 }
+.btn-secondary:not(:hover) {
+  color: #25a559 !important;
+}
+
 .btn-primary {
   background: #25a559 !important;
   color: #fff;

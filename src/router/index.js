@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import ClientsView from "../views/ClientsView.vue";
+
 import TransactionView from "../views/TransactionView.vue";
 import HistoryEmailView from "../views/HistoryEmailView.vue";
 import LoginView from "../views/LoginView.vue";
@@ -37,11 +37,7 @@ const routes = [
         name: "account",
         component: ManageAccountView,
       },
-      {
-        path: "/clients",
-        name: "clients",
-        component: ClientsView,
-      },
+
       {
         path: "/invoice",
         name: "invoice",

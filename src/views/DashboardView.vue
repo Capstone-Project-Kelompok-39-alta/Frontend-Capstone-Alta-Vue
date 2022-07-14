@@ -81,7 +81,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="low-profile" v-for="(user, index) in user" :key="index">
+                  <div class="low-profile">
                     <div class="row">
                       <div class="text-center fw-bold" style="font-size: 24px">{{ user.name }}</div>
                     </div>

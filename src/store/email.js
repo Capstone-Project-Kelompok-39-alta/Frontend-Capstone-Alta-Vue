@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiHost = `https://invoinesia.xyz`;
+const apiHost = `http://invoinesia.xyz`;
 const state = () => ({
   info: "",
 });
@@ -42,11 +42,11 @@ const actions = {
       .catch((error) => {
         console.log("error nya adalah", error);
         store.commit("setInfo", error);
-        alert("Error : ", error);
-        store.commit("auth/setToken", "", {
-          root: true,
-        });
-        window.location.reload();
+        // alert("Error : ", error);
+        // store.commit("auth/setToken", "", {
+        //   root: true,
+        // });
+        // window.location.reload();
       });
 
     return result;

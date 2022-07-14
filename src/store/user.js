@@ -17,6 +17,7 @@ const mutations = {
 
 const actions = {
   checkUser(store) {
+    console.log(store.state);
     return axios
       .get(`${apiHost}/admin/user/${store.state.id}`, {
         headers: { Authorization: `Bearer ${store.rootState.auth.token}` },
