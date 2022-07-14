@@ -38,37 +38,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-if="isVisible">
-                <td>21/07/22</td>
-                <td>Roland</td>
-                <td>brilroland@gmail.com</td>
-                <td>Invoice</td>
-                <td>Succesful</td>
-                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
-              </tr>
-              <tr v-if="isVisible">
-                <td>21/07/22</td>
-                <td>Roland</td>
-                <td>brilroland@gmail.com</td>
-                <td>Invoice</td>
-                <td>Succesful</td>
-                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
-              </tr>
-              <tr v-if="isVisible">
-                <td>21/07/22</td>
-                <td>Roland</td>
-                <td>brilroland@gmail.com</td>
-                <td>Invoice</td>
-                <td>Succesful</td>
-                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
-              </tr>
-              <tr v-if="isVisible">
-                <td>21/07/22</td>
-                <td>Roland</td>
-                <td>brilroland@gmail.com</td>
-                <td>Invoice</td>
-                <td>Succesful</td>
-                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
+              <tr v-for="(list, index) in history" :key="index">
+                <td>{{ list.date }}</td>
+                <td>{{ list.name }}</td>
+                <td>{{ list.email }}</td>
+                <td>{{ list.subject }}</td>
+                <td>{{ list.status }}</td>
+                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px" @click="hapus(index)">Delete</button></td>
               </tr>
             </tbody>
           </table>
@@ -134,7 +110,56 @@ export default {
       history: [
         {
           date: "14/07/22",
-          name: "Roland Brilianto",
+          name: "Rolando Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Failed",
+        },
+        {
+          date: "14/07/22",
+          name: "Rolandi Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Succesful",
+        },
+        {
+          date: "14/07/22",
+          name: "Rolande Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Failed",
+        },
+        {
+          date: "14/07/22",
+          name: "Rolandu Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Succesful",
+        },
+        {
+          date: "14/07/22",
+          name: "Rolanda Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Failed",
+        },
+        {
+          date: "14/07/22",
+          name: "Rolands Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Succesful",
+        },
+        {
+          date: "14/07/22",
+          name: "Rolandv Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Failed",
+        },
+        {
+          date: "14/07/22",
+          name: "Rolandty Brilianto",
           email: "brilroland@gmail.com",
           subject: "Invoice",
           status: "Succesful",
@@ -148,8 +173,8 @@ export default {
     },
   },
   methods: {
-    hapus() {
-      this.isVisible = false;
+    hapus(index) {
+      this.history.splice(index, 1);
     },
     manageAccount() {
       this.$router.push("/account");
