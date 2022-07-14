@@ -70,12 +70,15 @@ const actions = {
             root: true,
           });
           window.location.reload();
+        } else if (response.status === 500) {
+          store.commit("setInfo", response);
+          alert("Eror 500");
         }
       })
       .catch((error) => {
         console.log("error nya adalah", error);
         store.commit("setInfo", error);
-        alert("Error : ", error);
+        alert("Error API: ", error);
         store.commit("auth/setToken", "", {
           root: true,
         });

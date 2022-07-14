@@ -45,18 +45,57 @@
                   {{ index + 1 }}
                 </td>
                 <td>{{ list.id }}</td>
-                <td>{{ list.due_date }}</td>
+                <td>{{ moment(list.due_date).format("ll") }}</td>
                 <td>{{ list.buyer_name }}</td>
                 <td>{{ truncate(list.buyer_email, 5) }}</td>
                 <td>{{ list.buyer_phone }}</td>
                 <td>{{ list.total }}</td>
                 <td>
-                  <button class="btn btn-secondary" style="cursor: pointer">Detail</button>
-                  <button class="btn btn-primary" style="border-radius: 32px" data-bs-toggle="modal" data-bs-target="#exampleModal2" @click="getDetail(list)">Send</button>
+                  <button class="btn btn-secondary me-2" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#exampleModal3" @click="getDetail(list)">Detail</button>
+                  <button class="btn btn-primary px-3" style="border-radius: 32px" data-bs-toggle="modal" data-bs-target="#exampleModal2" @click="getDetail(list)">Send</button>
                 </td>
               </tr>
             </tbody>
           </table>
+
+          <!-- modal detail -->
+          <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="container-fluid">
+                    <div class="mt-2">
+                      <table class="table table-bordered" style="border-radius: 10px">
+                        <thead style="background: #25a559">
+                          <tr>
+                            <th scope="col">Buyer Name</th>
+                            <th scope="col">Buyer Email</th>
+                            <th scope="col">Buyer Phone</th>
+                            <th scope="col">Issuer Email</th>
+                            <th scope="col">Issuer Name</th>
+                            <th scope="col">Issuer Phone</th>
+                            <th scope="col">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>{{ name }}</td>
+                            <td>{{ email }}</td>
+                            <td>{{ telNo }}</td>
+                            <td>{{ isuEmail }}</td>
+                            <td>{{ isuName }}</td>
+                            <td>{{ isuPhone }}</td>
+                            <td>{{ total }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- modal send email -->
           <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -151,12 +190,14 @@
 <script>
 import SidebarNav from "@/components/SidebarNav.vue";
 import $ from "jquery";
+import moment from "moment";
 export default {
   components: {
     SidebarNav,
   },
   data() {
     return {
+      moment: moment,
       id: "",
       name: "",
       email: "",
@@ -164,6 +205,11 @@ export default {
       total: "",
       isi: "",
       isLoading: false,
+      date: "",
+      telNo: "",
+      isuName: "",
+      isuEmail: "",
+      isuPhone: "",
     };
   },
   computed: {
@@ -188,15 +234,21 @@ export default {
       return str.length > n ? str.substr(0, n - 1) + `...` : str;
     },
     getDetail(list) {
+      this.name = list.buyer_name;
+      this.isuName = list.issuer_name;
+      this.isuEmail = list.issuer_email;
+      this.isuPhone = list.issuer_phone;
+      this.telNo = list.buyer_phone;
+      this.date = moment(list.due_date).format("ll");
       this.id = list.id;
       this.email = list.buyer_email;
       this.total = list.total;
-      let isiEmail = `Kepada Yth, \nBapak/Ibu Abang Agus\nBerikut terlampir Invoice #PQ-1124D sebesar Rp ${this.total}
+      let isiEmail = `Kepada Yth, \nBapak/Ibu ${this.name}\nBerikut terlampir Invoice #${this.id} sebesar Rp ${this.total}
 
-                    No. Invoice : PQ-1124D
-                    Jatuh Tempo : 27/05/22
+                    No. Invoice : ${this.id}
+                    Jatuh Tempo : ${this.date}
                     Jumlah      : Rp. ${this.total}
-                    No. Telp    : 02123456789\n\nMohon segera lakukan pembayaran sebelum tanggal jatuh tempo.\nJika ada pertanyaan, silahkan hubungi customer service kami.\nTerima kasih atas kepercayaan Anda terhadap kami.\n\nSalam Hormat,\nInvoinesia`;
+                    No. Telp    : ${this.telNo}\n\nMohon segera lakukan pembayaran sebelum tanggal jatuh tempo.\nJika ada pertanyaan, silahkan hubungi customer service kami.\nTerima kasih atas kepercayaan Anda terhadap kami.\n\nSalam Hormat,\nInvoinesia`;
       this.isi = isiEmail;
       console.log(isiEmail);
       console.log(list);
