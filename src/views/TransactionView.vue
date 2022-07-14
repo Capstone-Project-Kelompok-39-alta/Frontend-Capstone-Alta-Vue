@@ -29,11 +29,13 @@
           <table class="table" id="datatable">
             <thead>
               <tr>
-                <th scope="col">No</th>
-                <th scope="col">Date</th>
-                <th scope="col">Client</th>
+                <th scope="col">No Client</th>
+                <th scope="col">Name</th>
                 <th scope="col">Amount</th>
-                <th scope="col">Category</th>
+                <th scope="col">Payment Method</th>
+                <th scope="col">Payment Date</th>
+                <th scope="col">No. Reference</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
@@ -42,7 +44,9 @@
                 <td>08/05/22</td>
                 <td>Nama Client</td>
                 <td>$242,55</td>
-                <td>PDAM <button class="btn btn-secondary ms-5">Detail</button></td>
+                <td>PDAM</td>
+                <td>098765</td>
+                <td><button class="btn btn-secondary ms-5 px-3">Detail</button></td>
               </tr>
             </tbody>
           </table>
