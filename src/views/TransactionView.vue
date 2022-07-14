@@ -26,7 +26,7 @@
           </div>
         </div>
         <div class="row ms-5 me-5">
-          <table class="table" id="datatable">
+          <table class="table" id="datatable" v-for="(items, index) in transaction" :key="index">
             <thead>
               <tr>
                 <th scope="col">No Client</th>
@@ -40,12 +40,12 @@
             </thead>
             <tbody>
               <tr>
-                <td>PQ-1124D</td>
-                <td>08/05/22</td>
-                <td>Nama Client</td>
-                <td>$242,55</td>
-                <td>PDAM</td>
-                <td>098765</td>
+                <td>{{ items.no }}</td>
+                <td>{{ items.name }}</td>
+                <td>{{ items.total }}</td>
+                <td>{{ items.payment }}</td>
+                <td>{{ items.payment_date }}</td>
+                <td>{{ items.NoRef }}</td>
                 <td><button class="btn btn-secondary ms-5 px-3">Detail</button></td>
               </tr>
             </tbody>
@@ -106,7 +106,20 @@ export default {
     SidebarNav,
   },
   data() {
-    return {};
+    return {
+      transaction: [
+        {
+          no: 1,
+          name: "Roland Brilianto",
+          total: 25000,
+          payment: "xendit",
+          payment_date: "13/07/22",
+          NoRef: 1234567,
+          email: "rolandbrilianto@gmail.com",
+          issuer: "saut manurung",
+        },
+      ],
+    };
   },
   computed: {
     user() {
@@ -124,7 +137,6 @@ export default {
       const result = await this.$store.dispatch("auth/logout");
 
       if (result) {
-        alert("Logout Sukses");
         this.$router.push("/");
       } else {
         this.errorText = this.$store.state.auth.info;

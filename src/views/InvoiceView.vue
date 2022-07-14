@@ -280,7 +280,6 @@ export default {
       const result = await this.$store.dispatch("auth/logout");
 
       if (result) {
-        alert("Logout Sukses");
         this.$router.push("/");
       } else {
         this.errorText = this.$store.state.auth.info;

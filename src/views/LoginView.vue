@@ -101,7 +101,6 @@ export default {
           password: this.password,
         });
         if (result) {
-          alert("Login Sukses");
           this.$router.push("/dashboard");
         } else {
           alert(this.$store.state.auth.info);

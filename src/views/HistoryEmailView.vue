@@ -34,15 +34,41 @@
                 <th scope="col">Email</th>
                 <th scope="col">Subject Email</th>
                 <th scope="col">Status</th>
+                <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>PQ-1124D</td>
-                <td>08/05/22</td>
-                <td>Nama Client</td>
-                <td>$242,55</td>
-                <td>PDAM <button class="btn btn-danger ms-5" style="border-radius: 16px">Delete</button></td>
+              <tr v-if="isVisible">
+                <td>21/07/22</td>
+                <td>Roland</td>
+                <td>brilroland@gmail.com</td>
+                <td>Invoice</td>
+                <td>Succesful</td>
+                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
+              </tr>
+              <tr v-if="isVisible">
+                <td>21/07/22</td>
+                <td>Roland</td>
+                <td>brilroland@gmail.com</td>
+                <td>Invoice</td>
+                <td>Succesful</td>
+                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
+              </tr>
+              <tr v-if="isVisible">
+                <td>21/07/22</td>
+                <td>Roland</td>
+                <td>brilroland@gmail.com</td>
+                <td>Invoice</td>
+                <td>Succesful</td>
+                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
+              </tr>
+              <tr v-if="isVisible">
+                <td>21/07/22</td>
+                <td>Roland</td>
+                <td>brilroland@gmail.com</td>
+                <td>Invoice</td>
+                <td>Succesful</td>
+                <td><button class="btn btn-danger ms-5" id="delete" style="border-radius: 16px">Delete</button></td>
               </tr>
             </tbody>
           </table>
@@ -102,7 +128,19 @@ export default {
     SidebarNav,
   },
   data() {
-    return {};
+    return {
+      isVisible: true,
+
+      history: [
+        {
+          date: "14/07/22",
+          name: "Roland Brilianto",
+          email: "brilroland@gmail.com",
+          subject: "Invoice",
+          status: "Succesful",
+        },
+      ],
+    };
   },
   computed: {
     user() {
@@ -110,6 +148,9 @@ export default {
     },
   },
   methods: {
+    hapus() {
+      this.isVisible = false;
+    },
     manageAccount() {
       this.$router.push("/account");
     },
@@ -117,7 +158,6 @@ export default {
       const result = await this.$store.dispatch("auth/logout");
 
       if (result) {
-        alert("Logout Sukses");
         this.$router.push("/");
       } else {
         this.errorText = this.$store.state.auth.info;
@@ -134,12 +174,6 @@ export default {
         [5, 10, 15],
         [5, 10, 15],
       ],
-      // columnDefs: [
-      //   {
-      //     targets: ,
-      //     render: $.fn.dataTable.render.ellipsis(17, true),
-      //   },
-      // ],
     });
   },
 };
