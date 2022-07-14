@@ -47,7 +47,7 @@
           </div>
           <div class="row justify-content-center">
             <div class="col-5">{{ user.id_pegawai }}</div>
-            <div class="col-5">{{ user.password }}</div>
+            <div class="col-5">{{ truncate(user.password, 0) }}</div>
           </div>
           <div class="row">
             <div class="d-flex bd-highlight mb-3">
@@ -123,9 +123,11 @@
                   </div>
                   <div class="low-profile">
                     <div class="row">
-                      <div class="text-center fw-bold" style="font-size: 24px">Kelompok 39</div>
+                      <div class="text-center fw-bold" style="font-size: 24px">{{ user.name }}</div>
                     </div>
-                    <div class="row"><div class="text-center" style="font-size: 18px; font-weight: 400">Kelompok39@gmail.com</div></div>
+                    <div class="row">
+                      <div class="text-center" style="font-size: 18px; font-weight: 400">{{ user.email }}</div>
+                    </div>
                     <div class="row mt-4">
                       <div class="d-flex">
                         <button class="btn btn-secondary mx-auto text-dark fw-bold" data-bs-dismiss="modal" @click="manageAccount()" style="height: 70px; width: 90%" type="button">
@@ -166,6 +168,9 @@ export default {
     },
   },
   methods: {
+    truncate(str, n) {
+      return str.length > n ? str.substr(0, n - 1) + `******` : str;
+    },
     manageAccount() {
       this.$router.push("/account");
     },

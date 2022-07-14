@@ -17,27 +17,16 @@
             </div>
           </div>
         </div>
-        <div class="row ms-5 mb-5 d-flex">
-          <div class="card-dropdown fw-bold">
-            <div>Date</div>
 
-            <input class="datepicker" v-model="tanggal" id="date" type="date" placeholder="Tanggal" required />
-          </div>
-          <div class="card-dropdown fw-bold ms-3">
-            <div>To</div>
-
-            <input type="text" class="inputHistory" />
-          </div>
-        </div>
-        <div class="row mt-5">
+        <div class="row">
           <div class="d-flex bd-highlight">
             <div class="me-auto p-2 bd-highlight">
               <p class="ms-5" style="font-size: 24px; font-weight: 700">All Email</p>
             </div>
           </div>
         </div>
-        <div class="row">
-          <table class="table ms-5" style="width: 90%">
+        <div class="row ms-5 me-5">
+          <table class="table" id="datatable">
             <thead>
               <tr>
                 <th scope="col">No</th>
@@ -75,9 +64,11 @@
                   </div>
                   <div class="low-profile">
                     <div class="row">
-                      <div class="text-center fw-bold" style="font-size: 24px">Kelompok 39</div>
+                      <div class="text-center fw-bold" style="font-size: 24px">{{ user.name }}</div>
                     </div>
-                    <div class="row"><div class="text-center" style="font-size: 18px; font-weight: 400">Kelompok39@gmail.com</div></div>
+                    <div class="row">
+                      <div class="text-center" style="font-size: 18px; font-weight: 400">{{ user.email }}</div>
+                    </div>
                     <div class="row mt-4">
                       <div class="d-flex">
                         <button class="btn btn-secondary mx-auto text-dark fw-bold" data-bs-dismiss="modal" @click="manageAccount()" style="height: 70px; width: 90%" type="button">
@@ -105,12 +96,18 @@
 </template>
 <script>
 import SidebarNav from "@/components/SidebarNav.vue";
+import $ from "jquery";
 export default {
   components: {
     SidebarNav,
   },
   data() {
     return {};
+  },
+  computed: {
+    user() {
+      return this.$store.state.user.user;
+    },
   },
   methods: {
     manageAccount() {
@@ -126,6 +123,24 @@ export default {
         this.errorText = this.$store.state.auth.info;
       }
     },
+    getUser() {
+      this.$store.dispatch("user/checkUser");
+    },
+  },
+  mounted() {
+    this.getUser();
+    $("#datatable").DataTable({
+      lengthMenu: [
+        [5, 10, 15],
+        [5, 10, 15],
+      ],
+      // columnDefs: [
+      //   {
+      //     targets: ,
+      //     render: $.fn.dataTable.render.ellipsis(17, true),
+      //   },
+      // ],
+    });
   },
 };
 </script>

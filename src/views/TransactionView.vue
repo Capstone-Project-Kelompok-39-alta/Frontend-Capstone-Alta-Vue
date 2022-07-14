@@ -64,9 +64,11 @@
                   </div>
                   <div class="low-profile">
                     <div class="row">
-                      <div class="text-center fw-bold" style="font-size: 24px">Kelompok 39</div>
+                      <div class="text-center fw-bold" style="font-size: 24px">{{ user.name }}</div>
                     </div>
-                    <div class="row"><div class="text-center" style="font-size: 18px; font-weight: 400">Kelompok39@gmail.com</div></div>
+                    <div class="row">
+                      <div class="text-center" style="font-size: 18px; font-weight: 400">{{ user.email }}</div>
+                    </div>
                     <div class="row mt-4">
                       <div class="d-flex">
                         <button class="btn btn-secondary mx-auto text-dark fw-bold" data-bs-dismiss="modal" @click="manageAccount()" style="height: 70px; width: 90%" type="button">
@@ -102,7 +104,15 @@ export default {
   data() {
     return {};
   },
+  computed: {
+    user() {
+      return this.$store.state.user.user;
+    },
+  },
   methods: {
+    getUser() {
+      this.$store.dispatch("user/checkUser");
+    },
     manageAccount() {
       this.$router.push("/account");
     },
@@ -118,6 +128,7 @@ export default {
     },
   },
   mounted() {
+    this.getUser();
     $("#datatable").DataTable({
       lengthMenu: [
         [5, 10, 15],
