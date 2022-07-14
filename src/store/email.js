@@ -42,11 +42,15 @@ const actions = {
       .catch((error) => {
         console.log("error nya adalah", error);
         store.commit("setInfo", error);
-        // alert("Error : ", error);
-        // store.commit("auth/setToken", "", {
-        //   root: true,
-        // });
-        // window.location.reload();
+        if (error.response.status === 401) {
+          alert("Sesion habis, silahkan login kembali");
+          store.commit("auth/setToken", "", {
+            root: true,
+          });
+          window.location.reload();
+        } else {
+          alert("Error API: ", error);
+        }
       });
 
     return result;

@@ -35,6 +35,7 @@ const actions = {
         if (response.status === 200) {
           store.commit("setInvoice", response.data.data);
         } else if (response.status === 401) {
+          store.commit("setInfo", response);
           alert("Sesion habis, silahkan login kembali");
           store.commit("auth/setToken", "", {
             root: true,
@@ -46,10 +47,13 @@ const actions = {
         console.log("error: ", error);
         store.commit("setError", error);
         alert("API EROR");
-        store.commit("auth/setToken", "", {
-          root: true,
-        });
-        window.location.reload();
+        if (error.response.status === 401) {
+          alert("Sesion habis, silahkan login kembali");
+          store.commit("auth/setToken", "", {
+            root: true,
+          });
+          window.location.reload();
+        }
       });
   },
   inputInvoice(store, credentials) {
@@ -78,11 +82,16 @@ const actions = {
       .catch((error) => {
         console.log("error nya adalah", error);
         store.commit("setInfo", error);
-        alert("Error API: ", error);
-        store.commit("auth/setToken", "", {
-          root: true,
-        });
-        window.location.reload();
+
+        if (error.response.status === 401) {
+          alert("Sesion habis, silahkan login kembali");
+          store.commit("auth/setToken", "", {
+            root: true,
+          });
+          window.location.reload();
+        } else {
+          alert("Error API: ", error);
+        }
       });
 
     return result;
