@@ -49,101 +49,14 @@
             <div class="col-5">{{ user.id_pegawai }}</div>
             <div class="col-5">{{ truncate(user.password, 0) }}</div>
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="d-flex bd-highlight mb-3">
               <div class="ms-auto bd-highlight me-5">
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal2" style="width: 150px" class="btn btn-primary radius32 me-3" @click="getDetail(user)">Edit Profile</button>
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal3" style="width: 150px" class="btn btn-primary radius32" @click="getDetail(user)">Edit Password</button>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- Modal Edit Profile-->
-        <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="exampleModalLabel">User Profile</h5>
-              </div>
-              <div class="modal-body">
-                <div class="card-modal d-flex mx-auto mb-5">
-                  <img class="img-fluid my-auto ms-3" src="../assets/ant-design_info-circle-filled-orange.svg" alt="" />
-                  <div class="flex-coloumn d-flex">
-                    <div class="my-auto ms-3" style="font-size: 18px">Updating user information will <span class="fw-bold">change your verification status.</span></div>
-                  </div>
-                </div>
-                <div class="d-flex">
-                  <form class="mx-auto">
-                    <div class="mb-3">
-                      <label for="name" class="form-label fw-bold">Nama</label>
-                      <input type="text" v-model="name" class="form-control" id="name" aria-describedby="emailHelp" />
-                    </div>
-                    <div class="mb-3">
-                      <label for="nip" class="form-label fw-bold">Nomer Induk Pegawai</label>
-                      <input type="number" v-model="nip" class="form-control" id="nip" aria-describedby="emailHelp" disabled />
-                    </div>
-                    <div class="mb-3">
-                      <label for="inputEmail" class="form-label fw-bold">Email</label>
-                      <input type="email" v-model="email" class="form-control" id="inputEmail" />
-                    </div>
-                    <div class="mb-3">
-                      <label for="passwordLama" class="form-label fw-bold">Password</label>
-                      <input type="password" v-model="passwordBefore" class="form-control" id="passwordLama" />
-                    </div>
-
-                    <div class="d-flex mb-5 mt-4">
-                      <div class="mx-auto">
-                        <button type="button" class="btn btn-secondary me-5" style="width: 205px" data-bs-dismiss="modal">Cancel</button
-                        ><button type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px" @click="editProfile(user)">Send</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- modal edit password -->
-        <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title fw-bold" id="exampleModalLabel">User Profile</h5>
-              </div>
-              <div class="modal-body">
-                <div class="card-modal d-flex mx-auto mb-5">
-                  <img class="img-fluid my-auto ms-3" src="../assets/ant-design_info-circle-filled-orange.svg" alt="" />
-                  <div class="flex-coloumn d-flex">
-                    <div class="my-auto ms-3" style="font-size: 18px">Updating user information will <span class="fw-bold">change your verification status.</span></div>
-                  </div>
-                </div>
-                <div class="d-flex">
-                  <form class="mx-auto">
-                    <div class="mb-3">
-                      <label for="passwordLama" class="form-label fw-bold">Password Lama</label>
-                      <input type="password" v-model="passwordBefore" class="form-control" id="passwordLama" />
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="passwordLama" class="form-label fw-bold">Password Baru</label>
-                      <input type="password" v-model="passwordAfter" class="form-control" id="passwordLama" />
-                    </div>
-
-                    <div class="mb-3">
-                      <label for="passwordLama" class="form-label fw-bold">Password Konfirmasi</label>
-                      <input type="password" v-model="passwordConfirm" class="form-control" id="passwordLama" />
-                    </div>
-
-                    <div class="d-flex mb-5 mt-4">
-                      <div class="mx-auto">
-                        <button type="button" class="btn btn-secondary me-5" style="width: 205px" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary" style="width: 205px; border-radius: 32px">Send</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- Modal User Detail-->
