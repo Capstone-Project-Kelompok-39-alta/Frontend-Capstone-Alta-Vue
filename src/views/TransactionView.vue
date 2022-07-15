@@ -46,10 +46,49 @@
                 <td>{{ items.payment }}</td>
                 <td>{{ items.payment_date }}</td>
                 <td>{{ items.NoRef }}</td>
-                <td><button class="btn btn-secondary ms-5 px-3">Detail</button></td>
+                <td><button class="btn btn-secondary ms-5 px-3" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#exampleModal1">Detail</button></td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <!-- modal detil -->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="mt-2">
+                    <table class="table table-bordered" style="border-radius: 10px">
+                      <thead style="background: #25a559">
+                        <tr>
+                          <th scope="col">No</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Total</th>
+                          <th scope="col">Payment</th>
+                          <th scope="col">Payment Date</th>
+                          <th scope="col">No Reference</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Issuer</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(items, index) in transaction" :key="index">
+                          <td>{{ items.no }}</td>
+                          <td>{{ items.name }}</td>
+                          <td>{{ items.total }}</td>
+                          <td>{{ items.payment }}</td>
+                          <td>{{ items.payment_date }}</td>
+                          <td>{{ items.NoRef }}</td>
+                          <td>{{ items.email }}</td>
+                          <td>{{ items.issuer }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- modal -->
