@@ -47,6 +47,9 @@
               <button class="btn btn-secondary text-dark btn-lg" style="border-radius: 32px" type="button" @click="toLogin()">Sign In</button>
             </div>
           </form>
+          <div class="mt-2 fs-5" v-if="isVisible">
+            <p class="text-center text-danger text-regist">Register Gagal</p>
+          </div>
         </div>
       </div>
     </div>
@@ -72,6 +75,9 @@
   color: #25a559;
   border-color: #25a559 !important;
 }
+.text-regist {
+  font-weight: 600;
+}
 </style>
 <script>
 export default {
@@ -83,6 +89,7 @@ export default {
       email: "",
       id_pegawai: "",
       errorText: "",
+      isVisible: false,
     };
   },
   computed: {
@@ -105,10 +112,10 @@ export default {
         id_pegawai: this.id_pegawai,
       });
       if (result) {
-        alert("register berhasil");
+        this.isVisible = false;
         this.$router.push("/");
       } else {
-        alert("Regist gagal", this.errorMsg);
+        this.isVisible = true;
       }
     },
     toggleShow() {
