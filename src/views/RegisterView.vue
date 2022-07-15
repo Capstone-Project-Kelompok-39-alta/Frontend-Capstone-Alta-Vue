@@ -105,7 +105,6 @@ export default {
         id_pegawai: this.id_pegawai,
       });
       if (result) {
-        alert("register berhasil");
         this.$router.push("/");
       } else {
         alert("Regist gagal", this.errorMsg);
