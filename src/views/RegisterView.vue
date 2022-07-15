@@ -48,7 +48,7 @@
             </div>
           </form>
           <div class="mt-2 fs-5" v-if="isVisible">
-            <p class="text-center text-danger">Register Gagal</p>
+            <p class="text-center text-danger text-regist">Register Gagal</p>
           </div>
         </div>
       </div>
@@ -74,6 +74,9 @@
   background: #fff !important;
   color: #25a559;
   border-color: #25a559 !important;
+}
+.text-regist {
+  font-weight: 600;
 }
 </style>
 <script>
