@@ -273,9 +273,7 @@ export default {
     manageAccount() {
       this.$router.push("/account");
     },
-    getInvoices() {
-      this.$store.dispatch("invoice/fetchListInvoice");
-    },
+
     async doLogOut() {
       const result = await this.$store.dispatch("auth/logout");
 
@@ -288,7 +286,7 @@ export default {
   },
   mounted() {
     this.getUser();
-    this.getInvoices();
+
     $("#datatable").DataTable({
       lengthMenu: [
         [5, 10, 15],

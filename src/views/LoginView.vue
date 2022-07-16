@@ -36,13 +36,23 @@
 
             <!-- Submit button -->
             <div class="d-grid gap-2 col-12 mx-auto">
-              <button style="border-radius: 32px" class="btn btn-primary btn-lg" type="button" @click="doLogin()">Sign In</button>
+              <button v-if="isLoading == false" style="border-radius: 32px" class="btn btn-primary btn-lg" type="button" @click="doLogin()">Sign In</button>
+              <button v-if="isLoading == true" style="border-radius: 32px" class="btn btn-primary btn-lg" type="button">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </button>
               <div class="mb-1" style="width: 100%; height: 13px; border-bottom: 1px solid black; text-align: center">
                 <span style="font-size: 16px; background: #ffffff; padding: 0 10px"> Or </span>
               </div>
               <button class="btn btn-secondary text-dark btn-lg" style="border-radius: 32px" type="button" @click="toRegister()">Register</button>
             </div>
           </form>
+          <div class="mt-2 fs-5">
+            <p v-if="isStatus == 1" class="text-center text-login" style="color: #25a559">Login Berhasil</p>
+            <p v-if="isStatus == 2" class="text-center text-login text-danger">Login Gagal</p>
+            <p v-if="isStatus == 3" class="text-center text-login text-danger">Isi Field Dengan Benar</p>
+          </div>
         </div>
       </div>
     </div>
@@ -58,6 +68,10 @@
 .col-4 {
   background: #25a559;
 }
+.text-login {
+  font-weight: 600;
+}
+
 .btn-primary {
   background: #25a559 !important;
   color: #fff;
@@ -76,6 +90,8 @@ export default {
       showPassword: false,
       password: "",
       id_pegawai: "",
+      isStatus: 0,
+      isLoading: false,
     };
   },
   computed: {
@@ -93,19 +109,27 @@ export default {
     //   }
     // },
     async doLogin() {
+      this.isLoading = true;
       if (this.id_pegawai === "" && this.password === "") {
-        alert("Harap Isi field dengan benar");
+        this.isStatus = 3;
+        this.isLoading = false;
       } else {
         const result = await this.$store.dispatch("auth/login", {
           id_pegawai: this.id_pegawai,
           password: this.password,
         });
         if (result) {
-          this.$router.push("/dashboard");
+          this.isStatus = 1;
+
+          setTimeout(this.toDashboard, 3000);
         } else {
-          alert(this.$store.state.auth.info);
+          this.isLoading = false;
+          this.isStatus = 2;
         }
       }
+    },
+    toDashboard() {
+      this.$router.push("/dashboard");
     },
     toggleShow() {
       this.showPassword = !this.showPassword;
