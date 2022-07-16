@@ -46,13 +46,15 @@ const actions = {
       .catch((error) => {
         console.log("error: ", error);
         store.commit("setError", error);
-        alert("API EROR");
+
         if (error.response.status === 401) {
           alert("Sesion habis, silahkan login kembali");
           store.commit("auth/setToken", "", {
             root: true,
           });
           window.location.reload();
+        } else {
+          alert("API EROR");
         }
       });
   },
