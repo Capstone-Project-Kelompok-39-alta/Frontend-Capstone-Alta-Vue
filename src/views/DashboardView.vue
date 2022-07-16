@@ -59,7 +59,7 @@
         <div class="row ms-5 tutorial">
           <p class="fw-bold tutorial-header">Silakan ikuti langkah-langkah berikut untuk mengunggah data invoice Anda</p>
           <ol class="ps-4 tutorial-point">
-            <li>Pastikan Anda sudah memiliki data Produk dan Client</li>
+            <li>Pastikan nama csv nya berupa Book1.csv</li>
             <li>Pastikan File yang ingin diunggah memiliki ekstensi .csv dan ukuran tidak lebih dari 1 MB</li>
             <li>Pastikan data Anda sudah memiliki kolom No. Invoice, Kode Client, Tanggal Jatuh Tempo, Nama Client, Nama Produk, Harga Produk</li>
             <li>Format tanggal DD/MM/YYYY</li>
