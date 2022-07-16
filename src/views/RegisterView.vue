@@ -54,7 +54,6 @@
           </form>
           <div class="mt-2 fs-5">
             <p v-if="isStatus == 1" class="text-center text-danger text-regist">Register Gagal</p>
-            <p v-if="isStatus == 2" class="text-center text-danger text-regist">Harap Isi Field Dengan Benar</p>
 
             <p v-if="isStatus == 4" class="text-center text-regist text-regist-success">Register Berhasil, Menuju Login</p>
           </div>
