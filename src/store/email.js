@@ -1,5 +1,5 @@
 import axios from "axios";
-const apiHost = `http://invoinesia.xyz`;
+const apiHost = `https://invoinesia.xyz`;
 const state = () => ({
   info: "",
 });
