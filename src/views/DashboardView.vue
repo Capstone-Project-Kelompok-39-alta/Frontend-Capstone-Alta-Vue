@@ -135,9 +135,7 @@ export default {
         this.errorText = this.$store.state.auth.info;
       }
     },
-    getInvoices() {
-      this.$store.dispatch("invoice/fetchListInvoice");
-    },
+
     getUser() {
       this.$store.dispatch("user/checkUser");
     },
@@ -158,7 +156,6 @@ export default {
     },
   },
   mounted() {
-    this.getInvoices();
     this.getUser();
   },
   computed: {
