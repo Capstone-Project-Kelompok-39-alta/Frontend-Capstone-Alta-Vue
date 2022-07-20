@@ -283,9 +283,13 @@ export default {
         this.errorText = this.$store.state.auth.info;
       }
     },
+    getInvoices() {
+      this.$store.dispatch("invoice/fetchListInvoice");
+    },
   },
   mounted() {
     this.getUser();
+    this.getInvoices();
 
     $("#datatable").DataTable({
       lengthMenu: [
