@@ -265,8 +265,10 @@ export default {
 
       if (result) {
         alert("Email Berhasil terkirim");
+        window.location.reload;
       } else {
         alert("Email tidak terkirim");
+        window.location.reload;
       }
       this.isLoading = false;
     },
