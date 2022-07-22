@@ -129,6 +129,10 @@
                                 <span class="visually-hidden">Loading...</span>
                               </div>
                             </button>
+                            <div class="mt-3">
+                              <p v-if="msg == 1" class="text-center text-login" style="color: #25a559">Send Email Success</p>
+                              <p v-if="msg == 2" class="text-center text-login text-danger">Send Email Failed</p>
+                            </div>
                           </div>
                         </div>
                       </form>
@@ -197,6 +201,7 @@ export default {
   },
   data() {
     return {
+      msg: 0,
       moment: moment,
       id: "",
       name: "",
@@ -264,18 +269,24 @@ export default {
       });
 
       if (result) {
-        alert("Email Berhasil terkirim");
-        window.location.reload();
+        // alert("Email Berhasil terkirim");
+        this.msg = 1;
+        this.isLoading = false;
+        setTimeout(this.reload, 2000);
       } else {
-        alert("Email tidak terkirim");
-        window.location.reload();
+        // alert("Email tidak terkirim");
+        this.msg = 2;
+        this.isLoading = false;
+        setTimeout(this.reload, 2000);
       }
       this.isLoading = false;
     },
     manageAccount() {
       this.$router.push("/account");
     },
-
+    reload() {
+      window.location.reload();
+    },
     async doLogOut() {
       const result = await this.$store.dispatch("auth/logout");
 
@@ -310,6 +321,9 @@ export default {
 };
 </script>
 <style scoped>
+.text-login {
+  font-weight: 600;
+}
 .header-email {
   background: #25a559;
   height: 135px;
